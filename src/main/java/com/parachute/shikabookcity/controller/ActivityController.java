@@ -156,10 +156,7 @@ public class ActivityController extends ApiController {
 
        try {
            //删除activity
-           activityService.removeById(activityId);
-           // 删除user与activity的联系
-           activityService.delUserActivity(userId, activityId);
-           activityService.delActivityBookLogic(activityId);
+           activityService.delActivity(userId,activityId);
            return Result.of(true,"删除成功");
        }catch (Exception e){
            e.printStackTrace();
@@ -182,10 +179,7 @@ public class ActivityController extends ApiController {
         Integer activityId = (Integer) data.get("activityId");
         String startTime = (String) data.get("startTime");
         String activityDeadline = (String) data.get("activityDeadline");
-        LambdaUpdateWrapper<Activity> wrapper = Wrappers.lambdaUpdate();
-        wrapper.eq(Activity::getId,activityId).set(Activity::getIsPublish,1);
         try {
-            activityService.update(wrapper);
             //建立联系
             activityService.publish(activityId,startTime,activityDeadline);
             return Result.of(true,"发布成功");

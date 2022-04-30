@@ -55,10 +55,8 @@ public class OrderController extends ApiController {
      */
     @RequestMapping("send")
     public Result send(@RequestBody Map map){
-        String orderId = (String) map.get("orderId");
         try {
-            orderService.send(orderId);
-            orderService.setSend(map);
+            orderService.insertSend(map);
             return Result.of(true,"确认发货成功");
         }catch (Exception e){
             e.printStackTrace();

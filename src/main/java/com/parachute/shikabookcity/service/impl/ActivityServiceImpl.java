@@ -108,6 +108,9 @@ public class ActivityServiceImpl extends ServiceImpl<ActivityDao, Activity> impl
      */
     @Override
     public void publish(Integer activityId, String startTime, String activityDeadline) {
+        LambdaUpdateWrapper<Activity> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(Activity::getId,activityId).set(Activity::getIsPublish,1);
+        update(wrapper);
         activityDao.publish(activityId, startTime, activityDeadline);
     }
 
@@ -339,6 +342,14 @@ public class ActivityServiceImpl extends ServiceImpl<ActivityDao, Activity> impl
                 e.printStackTrace();
             }
         });
+    }
+
+    @Override
+    public void delActivity(Integer userId, Integer activityId) {
+        removeById(activityId);
+        // 删除user与activity的联系
+        delUserActivity(userId, activityId);
+        delActivityBookLogic(activityId);
     }
 }
 

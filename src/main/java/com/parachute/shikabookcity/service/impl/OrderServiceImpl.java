@@ -104,8 +104,9 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, Order> implements Or
      * @param map 地图
      */
     @Override
-    public void setSend(Map map) {
+    public void insertSend(Map map) {
         String orderId = (String) map.get("orderId");
+        send(orderId);
         String nickName = (String)map.get("nickName");
         String phone = (String)map.get("phone");
         String commodity = (String) map.get("commodity");

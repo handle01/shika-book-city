@@ -158,5 +158,7 @@ public interface ActivityService extends IService<Activity> {
      * @param activities 活动
      */
     void setPublishTime(List<Activity> activities);
+
+    void delActivity(Integer userId, Integer activityId);
 }
 
