@@ -1,6 +1,5 @@
 package com.parachute.shikabookcity.service;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.parachute.shikabookcity.entity.User;
 import com.parachute.shikabookcity.util.Result;
@@ -30,13 +29,6 @@ public interface UserService extends IService<User> {
     Result register(User user);
 
 
-    /**
-     * 注入数据
-     *
-     * @param user 用户
-     * @return {@link LambdaQueryWrapper}<{@link User}>
-     */
-    Result setData(User user);
 
     /**
      * 验证表单

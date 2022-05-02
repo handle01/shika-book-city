@@ -114,7 +114,6 @@ public class BookServiceImpl extends ServiceImpl<BookDao, Book> implements BookS
         //正则判断字符串有没有字母存在
         String regex = "^\\d+$";
         if (!isbn.matches(regex)) {
-
             return Result.of(false, "ISBN必须全是数字");
         }
 
@@ -213,7 +212,6 @@ public class BookServiceImpl extends ServiceImpl<BookDao, Book> implements BookS
      */
     @Override
     public boolean delById(Integer userId, Integer bookId) {
-
         try {
             bookDao.delById(bookId);
             bookDao.delUserBook(userId, bookId);

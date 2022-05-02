@@ -124,53 +124,6 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
     }
 
     /**
-     * 注入数据
-     *
-     * @param user 用户
-     * @return {@link Result}
-     */
-    public Result setData(User user) {
-        if (user != null) {
-            String userName = user.getUserName();
-            String nickName = user.getNickName();
-            String phone = user.getPhone();
-            user.setUpdateTime(new Date());
-            Date updateTime = user.getUpdateTime();
-
-            LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
-            queryWrapper.eq(User::getUserName, userName);
-            User one = super.baseMapper.selectOne(queryWrapper);
-            queryWrapper.clear();
-            //是否昵称重复
-            if (!one.getNickName().equals(nickName)) {
-                queryWrapper.eq(User::getNickName, nickName);
-                List<User> nicknames = user.selectList(queryWrapper);
-                if (nicknames.size() > 0) {
-                    return Result.of(false, "昵称已被占用");
-                }
-            }
-            queryWrapper.clear();
-            //是否电话号码重复绑定
-            if (!one.getPhone().equals(phone)) {
-                queryWrapper.eq(User::getPhone, phone);
-                List<User> phones = user.selectList(queryWrapper);
-                if (phones.size() > 0) {
-                    return Result.of(false, "号码已被绑定");
-                }
-            }
-            LambdaUpdateWrapper<User> wrapper = Wrappers.lambdaUpdate();
-            wrapper.eq(User::getUserName, user.getUserName())
-                    .set(User::getNickName, user.getNickName())
-                    .set(User::getSex, user.getSex())
-                    .set(User::getPhone, user.getPhone())
-                    .set(User::getProfile, user.getProfile())
-                    .set(User::getUpdateTime, updateTime);
-            return Result.of(true, "", wrapper);
-        }
-        return null;
-    }
-
-    /**
      * 验证表单
      *
      * @param user 用户
@@ -215,14 +168,14 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
      */
     @Override
     public void update(User user) {
-
         LambdaUpdateWrapper<User> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(User::getUserName, user.getUserName())
                 .set(User::getNickName, user.getNickName())
                 .set(User::getSex, user.getSex())
                 .set(User::getPhone, user.getPhone())
                 .set(User::getProfile, user.getProfile())
-                .set(User::getUpdateTime, user.getUpdateTime());
+                .set(User::getUpdateTime, user.getUpdateTime())
+                .set(User::getUpdateName,"用户本人");
         super.baseMapper.update(user, wrapper);
     }
 

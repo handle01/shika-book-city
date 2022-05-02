@@ -73,8 +73,6 @@ public class BookController extends ApiController {
      */
     @RequestMapping ("del")
     public Result del(Integer userId,Integer bookId) {
-
-
         boolean all = bookService.delById(userId,bookId);
         if (all){
             return Result.of(true,"删除成功");
