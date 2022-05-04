@@ -35,9 +35,8 @@ public class SalesServiceImpl extends ServiceImpl<SalesDao, Sales> implements Sa
     @Override
     public List<HashMap<String,Object>> getDaily(Integer id) {
         Date date = new Date();
-        String s = null;
+        String s;
         s = DateUtils.date2String(date);
-        assert s != null;
         //获取“2022-04-26”格式日期
         String[] s1 = s.split(" ");
         List<Sales> daily = salesDao.getDaily(id, s1[0]);
@@ -53,9 +52,8 @@ public class SalesServiceImpl extends ServiceImpl<SalesDao, Sales> implements Sa
     @Override
     public List<HashMap<String, Object>> getMonthly(Integer id) {
         Date date = new Date();
-        String s = null;
+        String s;
         s = DateUtils.date2String(date);
-        assert s != null;
         String[] s1 = s.split(" ");
         String[] split = s1[0].split("-");
         //获取“2022-04%”格式
@@ -75,9 +73,8 @@ public class SalesServiceImpl extends ServiceImpl<SalesDao, Sales> implements Sa
     public List<HashMap<String, Object>> getYear(Integer id) {
 
         Date date = new Date();
-        String s = null;
+        String s;
         s = DateUtils.date2String(date);
-        assert s != null;
         String[] s1 = s.split(" ");
         String[] split = s1[0].split("-");
         //获取“2022%”格式
@@ -96,9 +93,8 @@ public class SalesServiceImpl extends ServiceImpl<SalesDao, Sales> implements Sa
     @Override
     public List<HashMap<String, Object>> getCommodityMarketingAmount(Integer id) {
         Date date = new Date();
-        String s = null;
+        String s;
         s = DateUtils.date2String(date);
-        assert s != null;
         String[] s1 = s.split(" ");
         String[] split = s1[0].split("-");
         //获取“2022-04%”格式

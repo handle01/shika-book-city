@@ -1,6 +1,7 @@
 package com.parachute.shikabookcity.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.parachute.shikabookcity.constant.SysConstant;
 import com.parachute.shikabookcity.dao.OrderDao;
 import com.parachute.shikabookcity.entity.Expressage;
 import com.parachute.shikabookcity.entity.Order;
@@ -110,7 +111,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, Order> implements Or
         String nickName = (String)map.get("nickName");
         String phone = (String)map.get("phone");
         String commodity = (String) map.get("commodity");
-        String position = "打包中";
+        String position = SysConstant.PACKAGING;
         orderDao.setSend(orderId,position,nickName,phone,commodity);
     }
 

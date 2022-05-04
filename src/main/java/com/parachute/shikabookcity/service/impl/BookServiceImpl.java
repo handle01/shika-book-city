@@ -5,6 +5,8 @@ import com.alibaba.fastjson.TypeReference;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.parachute.shikabookcity.constant.ResultConstant;
+import com.parachute.shikabookcity.constant.SysConstant;
 import com.parachute.shikabookcity.dao.BookDao;
 import com.parachute.shikabookcity.entity.Book;
 import com.parachute.shikabookcity.service.BookService;
@@ -97,47 +99,47 @@ public class BookServiceImpl extends ServiceImpl<BookDao, Book> implements BookS
         //封面
         String cover = book.getCover();
         if (cover == null) {
-            return Result.of(false, "没有上传图片");
+            return Result.of(false, ResultConstant.NO_PICTURES_UPLOADED);
         }
         //开本类型
         String format = book.getFormat();
         if (format == null) {
-            return Result.of(false, "开本类型没有选择");
+            return Result.of(false, ResultConstant.FORMAT_NOT_SELECTED);
         }
         //包装类型
         String packaging = book.getPackaging();
         if (packaging == null) {
-            return Result.of(false, "包装类型没有选择");
+            return Result.of(false, ResultConstant.PACKAGING_NOT_SELECTED);
         }
         //用纸类型
         String thePaper = book.getThePaper();
         if (thePaper == null) {
-            return Result.of(false, "用纸类型没有选择");
+            return Result.of(false, ResultConstant.THE_PAPER_NOT_SELECTED);
         }
         //ISBN、
         String isbn = book.getIsbn();
         //正则判断字符串有没有字母存在
         String regex = "^\\d+$";
         if (!isbn.matches(regex)) {
-            return Result.of(false, "ISBN必须全是数字");
+            return Result.of(false, ResultConstant.ISBN_MUST_IS_NUMBER);
         }
         //简介
         String description = book.getDescription();
         if (description == null || description.length() == 0) {
-            return Result.of(false, "简介为空");
+            return Result.of(false, ResultConstant.DESCRIPTION_IS_EMPTY);
         }
         //出版时间
         String publication = book.getPublicationTime();
         if (publication == null) {
-            return Result.of(false, "出版时间未选择");
+            return Result.of(false, ResultConstant.PUBLISH_TIME_NOT_SELECTED);
         }
-        Date publicationTime = DateUtils.string2Date(publication, "yyyy-MM-dd");
+        Date publicationTime = DateUtils.string2Date(publication, DateUtils.DATE);
 
         if (publicationTime.compareTo(new Date()) > 0) {
-            return Result.of(false, "出版时间不能大于当前时间");
+            return Result.of(false, ResultConstant.PUBLISH_TIME_NOT_GREATER_CURRENT_TIME);
         }
         if (book.getType() == null) {
-            return Result.of(false, "类型没有选择");
+            return Result.of(false, ResultConstant.BOOK_TYPE_NOT_SELECTED);
         }
         return null;
     }
@@ -163,7 +165,7 @@ public class BookServiceImpl extends ServiceImpl<BookDao, Book> implements BookS
                 .set(Book::getDescription, book.getDescription())
                 .set(Book::getPublicationTime, book.getPublicationTime())
                 .set(Book::getUpdateTime, new Date())
-                .set(Book::getUpdateName, "用户本人");
+                .set(Book::getUpdateName, SysConstant.USER_UPDATE);
         super.baseMapper.update(book, updateWrapper);
         //添加书籍类型
         bookDao.delBookType(book.getId());
@@ -196,7 +198,7 @@ public class BookServiceImpl extends ServiceImpl<BookDao, Book> implements BookS
 
         //填入基本信息
         book.setCreateTime(new Date());
-        book.setUpdateName("用户本人");
+        book.setUpdateName(SysConstant.USER_UPDATE);
         book.setUpdateTime(new Date());
         save(book);
         int i1 = Integer.parseInt(id);
@@ -206,7 +208,7 @@ public class BookServiceImpl extends ServiceImpl<BookDao, Book> implements BookS
         //注入书籍类型联系
         Integer bookId = book.getId();
         types.forEach(type -> bookDao.addBookType(bookId, type));
-        return Result.of(true,"添加成功");
+        return Result.of(true,ResultConstant.UPDATE_SUCCEED);
     }
 
     /**
@@ -261,7 +263,7 @@ public class BookServiceImpl extends ServiceImpl<BookDao, Book> implements BookS
                bookDao.insertCommodityCode(commodityCode);
                flag = true;
            }catch (Exception e){
-               log.error("商品编码重复");
+               log.error(ResultConstant.COMMODITY_CODE_IS_DUPLICATION);
                e.printStackTrace();
            }
        }

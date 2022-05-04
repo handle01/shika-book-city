@@ -7,6 +7,8 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.parachute.shikabookcity.config.CustomObjectMapper;
+import com.parachute.shikabookcity.constant.ResultConstant;
+import com.parachute.shikabookcity.constant.SysConstant;
 import com.parachute.shikabookcity.dao.UserDao;
 import com.parachute.shikabookcity.entity.User;
 import com.parachute.shikabookcity.service.UserService;
@@ -59,7 +61,7 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
         User user1 = super.baseMapper.selectOne(wrapper);
         //验证是否注册过
         if (user1 != null) {
-            return Result.of(false, "该账号已经注册");
+            return Result.of(false, ResultConstant.USERNAME_IS_REGISTERED);
         }
         //获取请求
         HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
@@ -96,7 +98,7 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
         user2.setProfile("https://s1.ax1x.com/2022/04/17/LNdyM4.png");
         //存入数据库
         super.baseMapper.insert(user2);
-        return Result.of(true, "注册成功");
+        return Result.of(true, ResultConstant.REGISTER_SUCCEED);
     }
 
     /**
@@ -151,7 +153,7 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
                 queryWrapper.eq(User::getNickName, nickName);
                 List<User> nicknames = user.selectList(queryWrapper);
                 if (!nicknames.isEmpty()) {
-                    return Result.of(false, "昵称已被占用");
+                    return Result.of(false, ResultConstant.NICKNAMES_IS_EXIST);
                 }
             }
             queryWrapper.clear();
@@ -160,7 +162,7 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
                 queryWrapper.eq(User::getPhone, phone);
                 List<User> phones = user.selectList(queryWrapper);
                 if (!phones.isEmpty()) {
-                    return Result.of(false, "号码已被绑定");
+                    return Result.of(false, ResultConstant.TELEPHONE_NUMBER_IS_BOUND);
                 }
             }
         }
@@ -181,7 +183,7 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
                 .set(User::getPhone, user.getPhone())
                 .set(User::getProfile, user.getProfile())
                 .set(User::getUpdateTime, user.getUpdateTime())
-                .set(User::getUpdateName,"用户本人");
+                .set(User::getUpdateName, SysConstant.USER_UPDATE);
         super.baseMapper.update(user, wrapper);
     }
 

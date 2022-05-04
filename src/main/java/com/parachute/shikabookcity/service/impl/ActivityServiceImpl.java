@@ -5,6 +5,8 @@ import com.alibaba.fastjson.TypeReference;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.parachute.shikabookcity.constant.ResultConstant;
+import com.parachute.shikabookcity.constant.SysConstant;
 import com.parachute.shikabookcity.dao.ActivityDao;
 import com.parachute.shikabookcity.entity.Activity;
 import com.parachute.shikabookcity.service.ActivityService;
@@ -250,11 +252,11 @@ public class ActivityServiceImpl extends ServiceImpl<ActivityDao, Activity> impl
         activity.setActivityDeadline(activityDeadline);
         activity.setCreateTime(new Date());
         activity.setUpdateTime(new Date());
-        activity.setUpdateName("system");
+        activity.setUpdateName(SysConstant.SYSTEM_UPDATE);
         save(activity);
         //建立用户与活动的联系
         activityDao.addUserActivity(id, activity.getId());
-        return Result.of(true, "添加成功");
+        return Result.of(true, ResultConstant.INSERT_EXIST);
     }
 
     /**
@@ -270,25 +272,25 @@ public class ActivityServiceImpl extends ServiceImpl<ActivityDao, Activity> impl
         //封面
         String cover = activity.getCover();
         if (cover == null) {
-            return Result.of(false, "没有上传图片");
+            return Result.of(false, ResultConstant.NO_PICTURES_UPLOADED);
         }
         //简介
         String description = activity.getDescription();
         if (description == null || description.length() == 0) {
-            return Result.of(false, "简介为空");
+            return Result.of(false, ResultConstant.DESCRIPTION_IS_EMPTY);
         }
         //出版时间
         List<String> publishTime = activity.getPublishTime();
         if (publishTime == null) {
-            return Result.of(false, "活动时间时间未选择");
+            return Result.of(false, ResultConstant.ACTIVITY_TIME_IS_NOT_SELECTED);
         }
         Date date = DateUtils.string2Date(publishTime.get(0), DateUtils.DATE_TIME);
 
         if (date.compareTo(new Date()) < 0) {
-            return Result.of(false, "活动时间不能小于当前时间");
+            return Result.of(false, ResultConstant.TIME_IS_SMALLER_CURRENT_TIME);
         }
         if (activity.getBooks() == null) {
-            return Result.of(false, "活动包含产品没有选择");
+            return Result.of(false, ResultConstant.ACTIVITY_PRODUCTS_NOT_SELECTION);
         }
         return null;
 
@@ -312,7 +314,7 @@ public class ActivityServiceImpl extends ServiceImpl<ActivityDao, Activity> impl
                 .set(Activity::getPrice, activity.getPrice())
                 .set(Activity::getDescription, activity.getDescription())
                 .set(Activity::getCover, activity.getCover())
-                .set(Activity::getUpdateName, "用户本人")
+                .set(Activity::getUpdateName, SysConstant.USER_UPDATE)
                 .set(Activity::getUpdateTime, new Date())
                 .set(Activity::getStartTime, startTime)
                 .set(Activity::getActivityDeadline, activityDeadline);
@@ -362,7 +364,7 @@ public class ActivityServiceImpl extends ServiceImpl<ActivityDao, Activity> impl
                 activityDao.insertCommodityCode(commodityCode);
                 flag = true;
             }catch (Exception e){
-                log.error("商品编码重复");
+                log.error(ResultConstant.COMMODITY_CODE_IS_DUPLICATION);
                 e.printStackTrace();
             }
         }
