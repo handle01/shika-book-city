@@ -135,7 +135,7 @@ public interface ActivityService extends IService<Activity> {
      * @param data 数据
      * @return {@link Result}
      */
-    Result insert(Map data);
+    Result insert(Map<String,Object> data);
 
     /**
      * 验证表单
@@ -159,6 +159,18 @@ public interface ActivityService extends IService<Activity> {
      */
     void setPublishTime(List<Activity> activities);
 
+    /**
+     * 删除活动
+     *
+     * @param userId     用户id
+     * @param activityId 活动id
+     */
     void delActivity(Integer userId, Integer activityId);
+    /**
+     * 插入不重复商品编码
+     *
+     * @return {@link String}
+     */
+    String insertCommodityCode();
 }
 

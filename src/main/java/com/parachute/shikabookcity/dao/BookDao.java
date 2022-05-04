@@ -20,7 +20,7 @@ public interface BookDao extends BaseMapper<Book> {
      *
      * @param userName 用户名
      * @return {@link List}<{@link Book}>
-     *///获取上架书籍
+     */
     @Select("select b.id,b.name,b.ISBN,b.publication_time,b.brand,b.press,b.price,b.author,b.packaging,b.the_paper,b.format,b.cover,b.description,b.is_added " +
             "from user u,user_book ub,book b " +
             "WHERE u.id = ub.user_id and ub.book_id = b.id and b.is_added = 1 and b.del_flag = 0 and ub.del_flag = 0 and u.user_name = #{userName}")
@@ -39,7 +39,7 @@ public interface BookDao extends BaseMapper<Book> {
      *
      * @param userId 用户id
      * @param bookId 书id
-     *///删除用户所有书籍
+     */
     @Insert("UPDATE user_book ub set ub.del_flag = 1 WHERE ub.user_id = #{userId} and ub.book_id = #{bookId}")
     void delUserBook(@Param("userId") Integer userId,@Param("bookId") Integer bookId);
 
@@ -48,7 +48,7 @@ public interface BookDao extends BaseMapper<Book> {
      *
      * @param userId 用户id
      * @param bookId 书id
-     *///用户添加书籍
+     */
     @Insert("INSERT INTO user_book (user_id,book_id) VALUES(#{userId},#{bookId})")
     void addUserBook(@Param("userId") Integer userId,@Param("bookId") Integer bookId);
 
@@ -88,5 +88,13 @@ public interface BookDao extends BaseMapper<Book> {
      */
     @Delete("DELETE FROM book_type WHERE book_id = #{id}")
     void delBookType(@Param("id") Integer id);
+
+    /**
+     * 插入商品编码防止重复
+     *
+     * @param commodityCode 商品编码
+     */
+    @Insert("INSERT into commodity_code (commodity_code) VALUES(#{commodityCode})")
+    void insertCommodityCode(String commodityCode);
 }
 

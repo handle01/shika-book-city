@@ -26,7 +26,6 @@ export function register(data) {
 }
 
 
-// }
 //提交修改表单
 export function submit(data) {
     return request({

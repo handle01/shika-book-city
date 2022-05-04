@@ -3,13 +3,14 @@ package com.parachute.shikabookcity.interceptor;/*
  *文件名: LoginInterseptor
  *创建者: 马驰
  *创建时间:2022/4/6 11:16
- *描述: TODO
+
 
  */
 
 
 import com.parachute.shikabookcity.config.CustomObjectMapper;
 import com.parachute.shikabookcity.constant.Constant;
+import com.parachute.shikabookcity.constant.LoginConstant;
 import com.parachute.shikabookcity.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -21,11 +22,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * 登录拦截器
+ *
+ * @author machi
+ * @date 2022/05/04
+ */
 @Component
 public class LoginInterceptor implements HandlerInterceptor {
 
     @Autowired
-    RedisTemplate redisTemplate;
+    RedisTemplate<String,String> redisTemplate;
 
     @Autowired
     CustomObjectMapper customObjectMapper;
@@ -33,9 +40,10 @@ public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         //检查拦截的URL有没有携带token
-        String servletPath = request.getServletPath();//获取请求名 也就是/login
+        //获取请求名 也就是/login
+        String servletPath = request.getServletPath();
         //不拦截主页及登陆注册请求
-        if (servletPath.equals("/user/login") || servletPath.equals("/") || servletPath.equals("/user/register")){
+        if (LoginConstant.LOGIN.equals(servletPath) || LoginConstant.INDEX.equals(servletPath) || LoginConstant.REGISTER.equals(servletPath)){
             return true;
         }
         String userName = request.getHeader("userName");

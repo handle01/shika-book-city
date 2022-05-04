@@ -31,9 +31,9 @@
 </template>
 <script  setup>
 import { ElMessage, ElMessageBox } from "element-plus";
-import { computed, ref } from "vue";
+import { computed, ref,onMounted } from "vue";
 import { getOrder,send} from "@/api/order";
-import { onMounted } from "vue";
+
 
 var tableData = ref([]); //列表数据
 var total = ref(0); //数据总条数
@@ -69,7 +69,7 @@ let changPage = function (page) {
     tableData.value = res.data.data.list;
   });
 };
-// const list = tableData.value;
+
 
 let search = ref("");
 //搜索

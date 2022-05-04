@@ -1,7 +1,7 @@
 package com.parachute.shikabookcity.controller;
 
 
-import com.baomidou.mybatisplus.extension.api.ApiController;
+import com.parachute.shikabookcity.constant.ResultConstant;
 import com.parachute.shikabookcity.service.SalesService;
 import com.parachute.shikabookcity.util.Result;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +19,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("sales")
-public class SalesController extends ApiController {
+public class SalesController{
     /**
      * 服务对象
      */
@@ -39,7 +39,7 @@ public class SalesController extends ApiController {
             return Result.of(true,"",sales);
         }catch (Exception e){
             e.printStackTrace();
-            return Result.of(false,"服务器异常");
+            return Result.of(false, ResultConstant.SERVER_EXCEPTION);
         }
 
     }
@@ -57,7 +57,7 @@ public class SalesController extends ApiController {
             return Result.of(true,"",sales);
         }catch (Exception e){
             e.printStackTrace();
-            return Result.of(false,"服务器异常");
+            return Result.of(false,ResultConstant.SERVER_EXCEPTION);
         }
     }
 
@@ -74,7 +74,7 @@ public class SalesController extends ApiController {
             return Result.of(true,"",sales);
         }catch (Exception e){
             e.printStackTrace();
-            return Result.of(false,"服务器异常");
+            return Result.of(false,ResultConstant.SERVER_EXCEPTION);
         }
     }
 
@@ -92,7 +92,7 @@ public class SalesController extends ApiController {
             return Result.of(true,"",marketingAmounts);
         }catch (Exception e){
             e.printStackTrace();
-            return Result.of(false,"服务器异常");
+            return Result.of(false,ResultConstant.SERVER_EXCEPTION);
         }
     }
 
@@ -109,7 +109,7 @@ public class SalesController extends ApiController {
             return Result.of(true,"",list);
         }catch (Exception e){
             e.printStackTrace();
-            return Result.of(false,"服务器异常");
+            return Result.of(false,ResultConstant.SERVER_EXCEPTION);
         }
 
     }

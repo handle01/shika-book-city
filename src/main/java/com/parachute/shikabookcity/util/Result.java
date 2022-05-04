@@ -3,7 +3,7 @@ package com.parachute.shikabookcity.util;/*
  *文件名: Result
  *创建者: 马驰
  *创建时间:2022/4/15 15:46
- *描述: TODO
+
 
  */
 
@@ -16,6 +16,7 @@ import java.io.Serializable;
  * @date 2022/04/25
  */
 public class Result implements Serializable {
+    private static final long serialVersionUID = 1905122041950251207L;
     /**
      * 返回结果标识
      * 执行结果，true为执行成功 false为执行失败

@@ -30,11 +30,10 @@ public class JdbcRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        Object principal = principalCollection.getPrimaryPrincipal();
 
 
-        //        info.addRoles(Arrays.asList("admin"));
-//        info.addStringPermissions(Arrays.asList("user:add","user:delete"));
+
+
         return new SimpleAuthorizationInfo();
 
     }

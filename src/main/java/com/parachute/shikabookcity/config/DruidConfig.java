@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 
 import javax.servlet.Filter;
 import javax.sql.DataSource;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 
 /**
@@ -41,8 +41,8 @@ public class DruidConfig {
      * @return {@link ServletRegistrationBean}
      */
     @Bean
-    public ServletRegistrationBean statViewServlet() {
-        ServletRegistrationBean bean = new ServletRegistrationBean(new
+    public ServletRegistrationBean<StatViewServlet> statViewServlet() {
+        ServletRegistrationBean<StatViewServlet> bean = new ServletRegistrationBean<>(new
                 StatViewServlet(), "/druid/*");
         HashMap<String, String> map = new HashMap<>(2);
         map.put("loginUsername", "machi");
@@ -57,14 +57,14 @@ public class DruidConfig {
      * @return {@link FilterRegistrationBean}
      */
     @Bean
-    public FilterRegistrationBean webStatFilter() {
+    public FilterRegistrationBean<Filter> webStatFilter() {
         FilterRegistrationBean<Filter> bean = new FilterRegistrationBean<>
                 ();
         bean.setFilter(new WebStatFilter());
         HashMap<String, String> map = new HashMap<>(8);
         map.put("exclusions", "*.js");
         bean.setInitParameters(map);
-        bean.setUrlPatterns(Arrays.asList("/*"));
+        bean.setUrlPatterns(Collections.singletonList("/*"));
         return bean;
     }
 }

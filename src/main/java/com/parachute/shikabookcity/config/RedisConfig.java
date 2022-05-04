@@ -24,11 +24,6 @@ public class RedisConfig {
     public RedisTemplate<String,Object> redisTemplate(RedisConnectionFactory factory){
         RedisTemplate<String,Object> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(factory);
-        //设置序列化的方式
-//        redisTemplate.setValueSerializer(RedisSerializer.json());
-//        redisTemplate.setHashValueSerializer(RedisSerializer.json());
-//        redisTemplate.setKeySerializer(RedisSerializer.string());
-//        redisTemplate.setHashKeySerializer(RedisSerializer.string());
         return redisTemplate;
     }
 

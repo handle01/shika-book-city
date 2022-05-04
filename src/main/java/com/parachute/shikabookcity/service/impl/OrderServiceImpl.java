@@ -34,7 +34,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, Order> implements Or
         List<Order> orders = orderDao.getOrder(userName);
         orders.forEach(order -> {
             //订单商品信息
-            StringBuffer commodity = new StringBuffer("");
+            StringBuilder commodity = new StringBuilder();
             //获取商品编号
             List<OrderCommodity> codes = getCommodityCode(order.getOrderId());
             codes.forEach(code->{
@@ -104,7 +104,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, Order> implements Or
      * @param map 地图
      */
     @Override
-    public void insertSend(Map map) {
+    public void insertSend(Map<String,Object> map) {
         String orderId = (String) map.get("orderId");
         send(orderId);
         String nickName = (String)map.get("nickName");

@@ -79,7 +79,7 @@ let changPage = function (page) {
     tableData.value = res.data.data.list;
   });
 };
-// const list = tableData.value;
+
 
 let search = ref("");
 //搜索

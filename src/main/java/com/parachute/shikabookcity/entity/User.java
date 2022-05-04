@@ -14,36 +14,66 @@ import java.util.Date;
  */
 @SuppressWarnings("serial")
 public class User extends Model<User> {
-    //id
+    /**
+     * id
+     */
     private Integer id;
-    //账号
+    /**
+     * 用户名
+     */
     private String userName;
-    //用户名
+    /**
+     * 昵称
+     */
     private String nickName;
-    //电话号码
+    /**
+     * 电话号码
+     */
     private String phone;
-    //性别 1 男 0 女
+    /**
+     * 性别 1 男 0 女
+     */
     private String sex;
-    //是否封禁 1是
+    /**
+     * 是否封禁 1是
+     */
     private String status;
-    //登录地址
+    /**
+     * 登录地址
+     */
     private String loginIp;
-    //最后登录时间
+    /**
+     * 最后登录时间
+     */
     private Date loginDate;
-    //创建时间
+    /**
+     * 创建时间
+     */
     private Date createTime;
-    //修改时间
+    /**
+     * 更新时间
+     */
     private Date updateTime;
-    //是否删除
+    /**
+     * 是否删除
+     */
     @TableLogic
     private Integer delFlag;
-    //修改人
+    /**
+     * 修改人
+     */
     private String updateName;
-    //头像
+    /**
+     * 头像
+     */
     private String profile;
-    //密码
+    /**
+     * 密码
+     */
     private String password;
-    //登录地址
+    /**
+     * 登录地址
+     */
     private String ipaddr;
 
 

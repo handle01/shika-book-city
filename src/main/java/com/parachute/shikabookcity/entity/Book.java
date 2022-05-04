@@ -16,46 +16,87 @@ import java.util.List;
  */
 @SuppressWarnings("serial")
 public class Book extends Model<Book> {
-    //id
+    /**
+     * id
+     */
     private Integer id;
-    //书籍姓名
+    /**
+     * 书籍姓名
+     */
     private String name;
-    //ISBN
+    /**
+     * ISBN国际标准图书编号
+     */
     private String isbn;
-    //商品编码
+    /**
+     * 商品编码
+     */
     private String commodityCode;
-    //出版时间
+    /**
+     * 出版时间
+     */
     @TableField("publication_time")
     private String publicationTime;
-    //品牌
+    /**
+     * 品牌
+     */
     private String brand;
-    //包装类型
+    /**
+     * 包装类型
+     */
     private String packaging;
-    //开本类型
+    /**
+     * 开本类型
+     */
     private String format;
-    //用纸类型
+    /**
+     * 用纸类型
+     */
     private String thePaper;
-    //封面
+    /**
+     * 封面
+     */
     private String cover;
-    //价格
+    /**
+     * 价格
+     */
     private Double price;
-    //创建时间
+    /**
+     * 创建时间
+     */
     private Date createTime;
-    //修改时间
+    /**
+     * 更新时间
+     */
     private Date updateTime;
-    //否删除 1 删除
+    /**
+     * 否删除 1 删除
+     */
     @TableLogic
     private Integer delFlag;
-    //修改人
+    /**
+     * 修改人
+     */
     private String updateName;
-    //作者
+    /**
+     * 作者
+     */
     private String author;
-    //出版社
+    /**
+     * 出版社
+     */
     private String press;
-    //是否上架 1上架
+    /**
+     * 是否上架 1上架
+     */
     private Integer isAdded;
-    //描述
+    /**
+     * 描述
+     */
     private String description;
+    /**
+     * 类型
+     */
     @TableField(exist = false)
     private List<String> type;
 

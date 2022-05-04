@@ -8,16 +8,16 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.parachute.shikabookcity.dao.BookDao;
 import com.parachute.shikabookcity.entity.Book;
 import com.parachute.shikabookcity.service.BookService;
-import com.parachute.shikabookcity.util.DateUtil;
+import com.parachute.shikabookcity.util.DateUtils;
 import com.parachute.shikabookcity.util.Result;
 import lombok.SneakyThrows;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 /**
  * (Book)表服务实现类
@@ -94,38 +94,44 @@ public class BookServiceImpl extends ServiceImpl<BookDao, Book> implements BookS
     @Override
     public Result validateForm(Book book) {
         //校验表单
-        String cover = book.getCover();//封面
+        //封面
+        String cover = book.getCover();
         if (cover == null) {
             return Result.of(false, "没有上传图片");
         }
-        String format = book.getFormat();//开本类型
+        //开本类型
+        String format = book.getFormat();
         if (format == null) {
             return Result.of(false, "开本类型没有选择");
         }
-        String packaging = book.getPackaging();//包装类型
+        //包装类型
+        String packaging = book.getPackaging();
         if (packaging == null) {
             return Result.of(false, "包装类型没有选择");
         }
-        String thePaper = book.getThePaper();//用纸类型
+        //用纸类型
+        String thePaper = book.getThePaper();
         if (thePaper == null) {
             return Result.of(false, "用纸类型没有选择");
         }
-        String isbn = book.getIsbn();//ISBN、
+        //ISBN、
+        String isbn = book.getIsbn();
         //正则判断字符串有没有字母存在
         String regex = "^\\d+$";
         if (!isbn.matches(regex)) {
             return Result.of(false, "ISBN必须全是数字");
         }
-
-        String description = book.getDescription();//简介
+        //简介
+        String description = book.getDescription();
         if (description == null || description.length() == 0) {
             return Result.of(false, "简介为空");
         }
-        String publication = book.getPublicationTime();//出版时间
+        //出版时间
+        String publication = book.getPublicationTime();
         if (publication == null) {
             return Result.of(false, "出版时间未选择");
         }
-        Date publicationTime = DateUtil.String2Date(publication, "yyyy-MM-dd");
+        Date publicationTime = DateUtils.string2Date(publication, "yyyy-MM-dd");
 
         if (publicationTime.compareTo(new Date()) > 0) {
             return Result.of(false, "出版时间不能大于当前时间");
@@ -172,7 +178,7 @@ public class BookServiceImpl extends ServiceImpl<BookDao, Book> implements BookS
      * @return {@link Result}
      */
     @Override
-    public Result insert(Map data) {
+    public Result insert(Map<String,Object> data) {
         //前端数据转化为对象
         Object s = data.get("book");
         Book book = JSON.parseObject(JSON.toJSONString(s), new TypeReference<Book>() {
@@ -184,10 +190,10 @@ public class BookServiceImpl extends ServiceImpl<BookDao, Book> implements BookS
         if (result != null) {
             return result;
         }
-        //随机生成商品编码
-        int i = new Random().nextInt(100000000);
-        String commodityCode = Integer.toString(i);
+        //随机生成不重复的商品编码
+        String commodityCode = insertCommodityCode();
         book.setCommodityCode(commodityCode);
+
         //填入基本信息
         book.setCreateTime(new Date());
         book.setUpdateName("用户本人");
@@ -228,17 +234,39 @@ public class BookServiceImpl extends ServiceImpl<BookDao, Book> implements BookS
      *
      * @param userId 用户id
      * @param bookId 书id
-     * @return boolean
+     *
      */
     @Override
-    public boolean addUserBook(Integer userId, Integer bookId) {
+    public void addUserBook(Integer userId, Integer bookId) {
         try {
             bookDao.addUserBook(userId, bookId);
-            return true;
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
         }
+    }
+
+    /**
+     * 插入重复商品编码
+     *
+     * @return {@link String}
+     */
+    @Override
+    public String insertCommodityCode(){
+        //随机生成商品编码
+        String commodityCode = null;
+        boolean flag  =false;
+       while (Boolean.FALSE.equals(flag)){
+           commodityCode = RandomStringUtils.randomNumeric(8);
+           try {
+               bookDao.insertCommodityCode(commodityCode);
+               flag = true;
+           }catch (Exception e){
+               log.error("商品编码重复");
+               e.printStackTrace();
+           }
+       }
+       return commodityCode;
+
     }
 
 

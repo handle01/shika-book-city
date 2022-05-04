@@ -1,9 +1,9 @@
 package com.parachute.shikabookcity.controller;
 
 
-import com.baomidou.mybatisplus.extension.api.ApiController;
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.github.pagehelper.page.PageMethod;
+import com.parachute.shikabookcity.constant.ResultConstant;
 import com.parachute.shikabookcity.entity.Expressage;
 import com.parachute.shikabookcity.entity.Order;
 import com.parachute.shikabookcity.service.OrderService;
@@ -25,7 +25,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("order")
-public class OrderController extends ApiController {
+public class OrderController {
     /**
      * 服务对象
      */
@@ -40,7 +40,7 @@ public class OrderController extends ApiController {
      */
     @RequestMapping("getOrder")
     public Result getOrder( Page page){
-        PageHelper.startPage(page.getCurrent(),page.getSize());
+        PageMethod.startPage(page.getCurrent(),page.getSize());
         List<Order> orders = orderService.getOrder(page.getUserName());
         PageInfo<Order> info = new PageInfo<>(orders);
         return Result.of(true,"",info);
@@ -54,13 +54,13 @@ public class OrderController extends ApiController {
      * @return {@link Result}
      */
     @RequestMapping("send")
-    public Result send(@RequestBody Map map){
+    public Result send(@RequestBody Map<String,Object> map){
         try {
             orderService.insertSend(map);
-            return Result.of(true,"确认发货成功");
+            return Result.of(true, ResultConstant.SHIPMENTS_SUCCEED);
         }catch (Exception e){
             e.printStackTrace();
-            return Result.of(false,"服务器异常");
+            return Result.of(false,ResultConstant.SERVER_EXCEPTION);
         }
 
     }
@@ -74,12 +74,12 @@ public class OrderController extends ApiController {
     @RequestMapping("getOrderExpressage")
     public Result getOrderExpressage(Page page){
         try {
-            PageHelper.startPage(page.getCurrent(), page.getSize());
+            PageMethod.startPage(page.getCurrent(), page.getSize());
             List<Expressage> expressages =  orderService.getOrderExpressage(page.getUserName());
             PageInfo<Expressage> pageInfo = new PageInfo<>(expressages);
             return Result.of(true,"",pageInfo);
         }catch (Exception e){
-            return Result.of(false,"服务器异常");
+            return Result.of(false,ResultConstant.SERVER_EXCEPTION);
         }
     }
 
@@ -92,12 +92,12 @@ public class OrderController extends ApiController {
     @RequestMapping("getSigned")
     public Result getSigned(Page page){
         try {
-            PageHelper.startPage(page.getCurrent(), page.getSize());
+            PageMethod.startPage(page.getCurrent(), page.getSize());
             List<Expressage> signed =  orderService.getSigned(page.getUserName());
             PageInfo<Expressage> pageInfo = new PageInfo<>(signed);
             return Result.of(true,"",pageInfo);
         }catch (Exception e){
-            return Result.of(false,"服务器异常");
+            return Result.of(false,ResultConstant.SERVER_EXCEPTION);
         }
 
     }

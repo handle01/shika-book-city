@@ -2,14 +2,13 @@ package com.parachute.shikabookcity.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.parachute.shikabookcity.dao.SalesDao;
-import com.parachute.shikabookcity.entity.MarketingAmount;
+import com.parachute.shikabookcity.entity.CommodityMarketingAmount;
 import com.parachute.shikabookcity.entity.Sales;
 import com.parachute.shikabookcity.service.SalesService;
-import com.parachute.shikabookcity.util.DateUtil;
+import com.parachute.shikabookcity.util.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -37,11 +36,7 @@ public class SalesServiceImpl extends ServiceImpl<SalesDao, Sales> implements Sa
     public List<HashMap<String,Object>> getDaily(Integer id) {
         Date date = new Date();
         String s = null;
-        try {
-            s = DateUtil.Date2String(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        s = DateUtils.date2String(date);
         assert s != null;
         //获取“2022-04-26”格式日期
         String[] s1 = s.split(" ");
@@ -59,11 +54,7 @@ public class SalesServiceImpl extends ServiceImpl<SalesDao, Sales> implements Sa
     public List<HashMap<String, Object>> getMonthly(Integer id) {
         Date date = new Date();
         String s = null;
-        try {
-            s = DateUtil.Date2String(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        s = DateUtils.date2String(date);
         assert s != null;
         String[] s1 = s.split(" ");
         String[] split = s1[0].split("-");
@@ -85,11 +76,7 @@ public class SalesServiceImpl extends ServiceImpl<SalesDao, Sales> implements Sa
 
         Date date = new Date();
         String s = null;
-        try {
-            s = DateUtil.Date2String(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        s = DateUtils.date2String(date);
         assert s != null;
         String[] s1 = s.split(" ");
         String[] split = s1[0].split("-");
@@ -110,22 +97,18 @@ public class SalesServiceImpl extends ServiceImpl<SalesDao, Sales> implements Sa
     public List<HashMap<String, Object>> getCommodityMarketingAmount(Integer id) {
         Date date = new Date();
         String s = null;
-        try {
-            s = DateUtil.Date2String(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        s = DateUtils.date2String(date);
         assert s != null;
         String[] s1 = s.split(" ");
         String[] split = s1[0].split("-");
         //获取“2022-04%”格式
         String tine = split[0]+ "-" + split[1] +"%";
 
-        List<MarketingAmount> daily = salesDao.getCommodityMarketingAmount(id, tine);
+        List<CommodityMarketingAmount> daily = salesDao.getCommodityMarketingAmount(id, tine);
         List<HashMap<String,Object>> list = new ArrayList<>();
         //返回书本与销量对应数据
         daily.forEach(commodity -> {
-            HashMap<String, Object> map = new HashMap<>();
+            HashMap<String, Object> map = new HashMap<>(16);
             map.put("value",commodity.getMarketingAmount());
             map.put("name",commodity.getName());
             list.add(map);
@@ -146,7 +129,7 @@ public class SalesServiceImpl extends ServiceImpl<SalesDao, Sales> implements Sa
     public List<List<String>> getYearMarketingAmount(Integer id) {
         List<List<String>> list = new ArrayList<>();
         List<String> money = new ArrayList<>();
-        List<String> data = DateUtil.getData();
+        List<String> data = DateUtils.getData();
         //获取前一年每月的营销额
         data.forEach(d->{
             //获取“2022%”格式
@@ -185,11 +168,9 @@ public class SalesServiceImpl extends ServiceImpl<SalesDao, Sales> implements Sa
      */
     private  List<HashMap<String,Object>> autoData(List<Sales> daily){
         List<HashMap<String,Object>> list = new ArrayList<>();
-        //将数据打包给前端{
-        // value:  name:
-        // }
+        //将数据打包给前端
         daily.forEach(sales -> {
-            HashMap<String, Object> map = new HashMap<>();
+            HashMap<String, Object> map = new HashMap<>(16);
             map.put("value",sales.getSales());
             map.put("name",sales.getName());
             list.add(map);

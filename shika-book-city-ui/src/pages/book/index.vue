@@ -5,14 +5,13 @@
         :label="pages.label"
         :name="pages.name"></el-tab-pane>
     <router-view :is="pages.name" v-if="pages.name == nowPage"></router-view>
-    <!-- <router-view >tab.props.name</router-view> -->
+
   </el-tabs>
 </template>
 <script  setup>
 import { useRouter } from "vue-router";
 import {  ref } from "vue";
-// import { getIsAdded} from "@/api/book";
-// import storage from "@/util/storage";
+
 const activeName = ref('isAdded')
 let router = useRouter()
 let nowPage = ref()

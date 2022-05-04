@@ -3,9 +3,9 @@ package com.parachute.shikabookcity.controller;
 
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.baomidou.mybatisplus.extension.api.ApiController;
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.github.pagehelper.page.PageMethod;
+import com.parachute.shikabookcity.constant.ResultConstant;
 import com.parachute.shikabookcity.entity.Activity;
 import com.parachute.shikabookcity.entity.Book;
 import com.parachute.shikabookcity.service.ActivityService;
@@ -31,7 +31,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("activity")
-public class ActivityController extends ApiController {
+public class ActivityController  {
 
     @Autowired
     private ActivityService activityService;
@@ -49,7 +49,7 @@ public class ActivityController extends ApiController {
     @RequestMapping("getNoDie")
     public Result getNoDie(Page page) {
         //传入当前页和每页大小
-        PageHelper.startPage(page.getCurrent(), page.getSize());
+        PageMethod.startPage(page.getCurrent(), page.getSize());
         List<Activity> activities = activityService.getNoDie(page.getUserName());
         PageInfo<Activity> pageInfo = new PageInfo<>(activities);
         return Result.of(true, "", pageInfo);
@@ -84,7 +84,7 @@ public class ActivityController extends ApiController {
     @RequestMapping("getIsDie")
     public Result getIsDie(Page page) {
         //传入当前页和每页大小
-        PageHelper.startPage(page.getCurrent(), page.getSize());
+        PageMethod.startPage(page.getCurrent(), page.getSize());
         List<Activity> activities = activityService.getIsDie(page.getUserName());
         PageInfo<Activity> pageInfo = new PageInfo<>(activities);
         return Result.of(true, "", pageInfo);
@@ -100,7 +100,7 @@ public class ActivityController extends ApiController {
     @RequestMapping("getPublish")
     public Result getPublish(Page page) {
         //传入当前页和每页大小
-        PageHelper.startPage(page.getCurrent(), page.getSize());
+        PageMethod.startPage(page.getCurrent(), page.getSize());
         List<Activity> activities = activityService.getPublish(page.getUserName());
         PageInfo<Activity> pageInfo = new PageInfo<>(activities);
         return Result.of(true, "", pageInfo);
@@ -116,7 +116,7 @@ public class ActivityController extends ApiController {
     @RequestMapping("getPending")
     public Result getPending(Page page) {
         //传入当前页和每页大小
-        PageHelper.startPage(page.getCurrent(), page.getSize());
+        PageMethod.startPage(page.getCurrent(), page.getSize());
         List<Activity> activities = activityService.getPending(page.getUserName());
         PageInfo<Activity> pageInfo = new PageInfo<>(activities);
         return Result.of(true, "", pageInfo);
@@ -137,9 +137,9 @@ public class ActivityController extends ApiController {
         updateWrapper.eq(Activity::getId, activityId).set(Activity::getIsDie, 1);
         try {
             activityService.update(updateWrapper);
-            return Result.of(true, "强制停止成功");
+            return Result.of(true, ResultConstant.FORCE_STOP);
         } catch (Exception e) {
-            return Result.of(false, "服务器异常");
+            return Result.of(false, ResultConstant.SERVER_EXCEPTION);
         }
     }
 
@@ -157,10 +157,10 @@ public class ActivityController extends ApiController {
        try {
            //删除activity
            activityService.delActivity(userId,activityId);
-           return Result.of(true,"删除成功");
+           return Result.of(true,ResultConstant.DELETE_SUCCEED);
        }catch (Exception e){
            e.printStackTrace();
-           return Result.of(false,"服务器异常");
+           return Result.of(false,ResultConstant.SERVER_EXCEPTION);
        }
 
 
@@ -175,16 +175,16 @@ public class ActivityController extends ApiController {
      * @return {@link Result}
      */
     @RequestMapping("publish")
-    public Result publish(@RequestBody Map data) {
+    public Result publish(@RequestBody Map<String,Object> data) {
         Integer activityId = (Integer) data.get("activityId");
         String startTime = (String) data.get("startTime");
         String activityDeadline = (String) data.get("activityDeadline");
         try {
             //建立联系
             activityService.publish(activityId,startTime,activityDeadline);
-            return Result.of(true,"发布成功");
+            return Result.of(true,ResultConstant.PUBLISH_SUCCEED);
         }catch (Exception e){
-            return Result.of(false,"服务器异常");
+            return Result.of(false,ResultConstant.SERVER_EXCEPTION);
         }
 
     }
@@ -198,14 +198,14 @@ public class ActivityController extends ApiController {
      * @throws ParseException 解析异常
      */
     @RequestMapping("add")
-    public Result add(@RequestBody Map data) throws ParseException {
+    public Result add(@RequestBody Map<String,Object> data) throws ParseException {
 
         try {
             //新增活动
             return activityService.insert(data);
         }catch (Exception e){
             e.printStackTrace();
-            return Result.of(false,"服务器异常");
+            return Result.of(false,ResultConstant.SERVER_EXCEPTION);
         }
 
     }
@@ -217,10 +217,10 @@ public class ActivityController extends ApiController {
      *
      * @param activity 活动
      * @return {@link Result}
-     * @throws ParseException 解析异常
+     *
      */
     @RequestMapping("updateConfig")
-    public Result updateConfig(@RequestBody Activity activity) throws ParseException {
+    public Result updateConfig(@RequestBody Activity activity) {
         //校验表单
         Result result = activityService.validateForm(activity);
         if (result != null){
@@ -228,10 +228,10 @@ public class ActivityController extends ApiController {
         }
         try {
             activityService.update(activity);
-            return Result.of(true,"修改成功");
+            return Result.of(true,ResultConstant.UPDATE_SUCCEED);
         }catch (Exception e){
             e.printStackTrace();
-            return Result.of(false,"服务器异常");
+            return Result.of(false,ResultConstant.SERVER_EXCEPTION);
         }
 
 

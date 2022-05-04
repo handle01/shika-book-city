@@ -1,9 +1,9 @@
 package com.parachute.shikabookcity.controller;
 
 
-import com.baomidou.mybatisplus.extension.api.ApiController;
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.github.pagehelper.page.PageMethod;
+import com.parachute.shikabookcity.constant.ResultConstant;
 import com.parachute.shikabookcity.entity.Book;
 import com.parachute.shikabookcity.entity.BookComment;
 import com.parachute.shikabookcity.service.BookCommentService;
@@ -23,7 +23,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("bookComment")
-public class BookCommentController extends ApiController {
+public class BookCommentController {
     /**
      * 服务对象
      */
@@ -38,14 +38,14 @@ public class BookCommentController extends ApiController {
      */
     @RequestMapping("getBook")
     public Result getBook(Page page){
-        PageHelper.startPage(page.getCurrent(),page.getSize());
+        PageMethod.startPage(page.getCurrent(),page.getSize());
         try {
             List<Book> books = bookCommentService.getBook(page.getUserName());
             PageInfo<Book> pageInfo = new PageInfo<>(books);
             return Result.of(true,"",pageInfo);
         }catch (Exception e){
             e.printStackTrace();
-            return Result.of(false,"服务器异常");
+            return Result.of(false, ResultConstant.SERVER_EXCEPTION);
         }
 
     }
@@ -58,14 +58,14 @@ public class BookCommentController extends ApiController {
      */
     @RequestMapping("getBookComment")
     public Result getBookComment(Page page){
-        PageHelper.startPage(page.getCurrent(), page.getSize());
+        PageMethod.startPage(page.getCurrent(), page.getSize());
         try {
             List<BookComment> comments = bookCommentService.getBookComment(page.getUserName());
             PageInfo<BookComment> info = new PageInfo<>(comments);
             return Result.of(true,"",info);
         }catch (Exception e){
             e.printStackTrace();
-            return Result.of(false,"服务器异常");
+            return Result.of(false,ResultConstant.SERVER_EXCEPTION);
         }
     }
 

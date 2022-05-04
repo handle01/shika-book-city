@@ -27,7 +27,9 @@ import java.util.Map;
 /**
  * @author NXY666
  */
-public class HttpUtil {
+public class HttpUtils {
+    private HttpUtils(){}
+
     private static Header[] parseHeaders(Map<String, String> headers) {
         Header[] headersArray = new Header[headers.size()];
         int i = 0;

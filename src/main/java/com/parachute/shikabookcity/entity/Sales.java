@@ -13,13 +13,21 @@ import java.util.Date;
  */
 @SuppressWarnings("serial")
 public class Sales extends Model<Sales> {
-    //书籍id
+    /**
+     *书籍id
+     */
     private Integer bookId;
-    //销量
+    /**
+     * 销售
+     */
     private Integer sales;
-    //日期
+    /**
+     * 日期
+     */
     private Date date;
-    //是否删除 1删除
+    /**
+     * 是否删除 1删除
+     */
     private Integer delFlag;
 
     public String getName() {
@@ -30,6 +38,9 @@ public class Sales extends Model<Sales> {
         this.name = name;
     }
 
+    /**
+     * 名字
+     */
     @TableField(exist = false)
     private String name;
 

@@ -159,5 +159,14 @@ public interface ActivityDao extends BaseMapper<Activity> {
      */
     @Update("update publish set del_flag = 1 where activity_id = #{activityId}")
     void delPublish(Integer activityId);
+
+    /**
+     * 插入商品编码防止重复
+     *
+     * @param commodityCode 商品编码
+     */
+    @Insert("INSERT into commodity_code (commodity_code) VALUES(#{commodityCode})")
+    void insertCommodityCode(String commodityCode);
 }
+
 

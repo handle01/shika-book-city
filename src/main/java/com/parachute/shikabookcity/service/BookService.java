@@ -39,9 +39,9 @@ public interface BookService extends IService<Book> {
      *
      * @param userId 用户id
      * @param bookId 书id
-     * @return boolean
+     *
      */
-    boolean addUserBook(Integer userId,Integer bookId);
+    void addUserBook(Integer userId,Integer bookId);
 
     /**
      * 获取下架书籍
@@ -88,6 +88,13 @@ public interface BookService extends IService<Book> {
      * @param data 数据
      * @return {@link Result}
      */
-    Result insert(Map data);
+    Result insert(Map<String,Object> data);
+
+    /**
+     * 插入不重复商品编码
+     *
+     * @return {@link String}
+     */
+    String insertCommodityCode();
 }
 

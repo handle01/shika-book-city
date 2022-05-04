@@ -27,7 +27,7 @@ public class TransactionalAopConfig {
     /**
      * 配置方法过期时间，默认-1,永不超时
      */
-    private final static int METHOD_TIME_OUT = 5000;
+    private static final int METHOD_TIME_OUT = 5000;
 
     /**
      * 配置切入点表达式

@@ -60,7 +60,7 @@ public interface OrderService extends IService<Order> {
      *
      * @param map 地图
      */
-    void insertSend(Map map);
+    void insertSend(Map<String,Object> map);
 
     /**
      * 得到订单快递业务

@@ -523,9 +523,9 @@
 </template>
 <script  setup>
 import { ElMessage, ElMessageBox } from "element-plus";
-import { computed, ref } from "vue";
+import { computed, ref,onMounted } from "vue";
 import { getNoAdded, submit, del, addBook, isAdded } from "@/api/book";
-import { onMounted } from "vue";
+
 
 //复选框数据
 
@@ -550,7 +550,7 @@ let headers = ref({
   token: storage.getSessionString("token"),
   userName: storage.getSessionString("userName"),
 });
-// const value = ref('')
+
 const holidays = [
   "2021-10-01",
   "2021-10-02",
@@ -633,7 +633,7 @@ let changPage = function (page) {
     tableData.value = res.data.data.list;
   });
 };
-// const list = tableData.value;
+
 
 let search = ref("");
 //搜索

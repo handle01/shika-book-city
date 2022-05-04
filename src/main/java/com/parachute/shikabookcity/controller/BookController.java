@@ -3,9 +3,9 @@ package com.parachute.shikabookcity.controller;
 
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.baomidou.mybatisplus.extension.api.ApiController;
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.github.pagehelper.page.PageMethod;
+import com.parachute.shikabookcity.constant.ResultConstant;
 import com.parachute.shikabookcity.entity.Book;
 import com.parachute.shikabookcity.service.BookService;
 import com.parachute.shikabookcity.util.Page;
@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.text.ParseException;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 本控制器
@@ -29,7 +29,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("book")
-public class BookController extends ApiController {
+public class BookController{
     /**
      * 书籍
      * BookService
@@ -54,10 +54,10 @@ public class BookController extends ApiController {
         }
         try {
             bookService.update(book);
-            return Result.of(true,"修改成功");
+            return Result.of(true,ResultConstant.UPDATE_SUCCEED);
         }catch (Exception e){
             e.printStackTrace();
-            return Result.of(false,"服务器异常");
+            return Result.of(false, ResultConstant.SERVER_EXCEPTION);
         }
 
     }
@@ -75,9 +75,9 @@ public class BookController extends ApiController {
     public Result del(Integer userId,Integer bookId) {
         boolean all = bookService.delById(userId,bookId);
         if (all){
-            return Result.of(true,"删除成功");
+            return Result.of(true,ResultConstant.DELETE_SUCCEED);
         }
-        return Result.of(false,"服务器异常");
+        return Result.of(false,ResultConstant.SERVER_EXCEPTION);
     }
 
 
@@ -91,7 +91,7 @@ public class BookController extends ApiController {
     @RequestMapping ("getIsAdded")
     public Result getIsAdded(Page page) {
         //传入当前页和每页大小
-        PageHelper.startPage(page.getCurrent(),page.getSize());
+        PageMethod.startPage(page.getCurrent(),page.getSize());
         List<Book> all = bookService.getIsAdded(page.getUserName());
         PageInfo<Book> pageInfo = new PageInfo<>(all);
         return Result.of(true,"",pageInfo);
@@ -106,7 +106,7 @@ public class BookController extends ApiController {
      */
     @RequestMapping ("getNoAdded")
     public Result getNoAdded(Page page) {
-        PageHelper.startPage(page.getCurrent(),page.getSize());
+        PageMethod.startPage(page.getCurrent(),page.getSize());
         List<Book> all = bookService.getNoAdded(page.getUserName());
         PageInfo<Book> pageInfo = new PageInfo<>(all);
         return Result.of(true,"",pageInfo);
@@ -121,12 +121,12 @@ public class BookController extends ApiController {
      * @throws ParseException 解析异常
      */
     @RequestMapping ("/add")
-    public Result add(@RequestBody HashMap data) throws ParseException {
+    public Result add(@RequestBody Map<String,Object> data) throws ParseException {
        try {
            return bookService.insert(data);
        }catch (Exception e){
             e.printStackTrace();
-            return Result.of(false,"服务器异常");
+            return Result.of(false,ResultConstant.SERVER_EXCEPTION);
         }
 
     }
@@ -150,13 +150,13 @@ public class BookController extends ApiController {
         try {
             boolean update = bookService.update(updateWrapper);
             if (update){
-                return Result.of(true,"上架成功");
+                return Result.of(true,ResultConstant.PUTAWAY_SUCCEED);
             }else {
-                return Result.of(false,"服务器异常");
+                return Result.of(false,ResultConstant.SERVER_EXCEPTION);
             }
         }catch (Exception e){
             e.printStackTrace();
-             return Result.of(false,"服务器异常");
+             return Result.of(false,ResultConstant.SERVER_EXCEPTION);
         }
     }
 
@@ -176,13 +176,13 @@ public class BookController extends ApiController {
         try {
             boolean update = bookService.update(updateWrapper);
             if (update){
-                return Result.of(true,"下架成功");
+                return Result.of(true,ResultConstant.UNSHELVE_SUCCEED);
             }else {
-                return Result.of(false,"服务器异常");
+                return Result.of(false,ResultConstant.SERVER_EXCEPTION);
             }
         }catch (Exception e){
             e.printStackTrace();
-            return Result.of(false,"服务器异常");
+            return Result.of(false,ResultConstant.SERVER_EXCEPTION);
         }
     }
 

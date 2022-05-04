@@ -31,7 +31,7 @@ import java.util.regex.Pattern;
  * @author NXY666
  */
 @Slf4j
-public class ImgtuUtil {
+public class ImgtuUtils {
 
     static final String IMGTU_USER_NAME = "2417600913@qq.com";
 
@@ -79,7 +79,7 @@ public class ImgtuUtil {
             log.info("【初始化】成功：会话有效期内，无需重新初始化。");
             return null;
         }
-        synchronized (ImgtuUtil.class) {
+        synchronized (ImgtuUtils.class) {
             // 初始化
             sessionId = null;
             authToken = null;
@@ -88,7 +88,7 @@ public class ImgtuUtil {
             String httpRawString;
             CloseableHttpResponse httpResponse;
             try {
-                httpResponse = HttpUtil.get(IMGTU_INIT_URL, new HashMap<>(0), new HashMap<>(0));
+                httpResponse = HttpUtils.get(IMGTU_INIT_URL, new HashMap<>(0), new HashMap<>(0));
                 HttpEntity httpEntity = httpResponse.getEntity();
                 httpRawString = EntityUtils.toString(httpEntity);
             } catch (IOException e) {
@@ -140,7 +140,7 @@ public class ImgtuUtil {
             log.info("【登录】成功：登录状态有效期内，无需重新登录。");
             return null;
         }
-        synchronized (ImgtuUtil.class) {
+        synchronized (ImgtuUtils.class) {
             // 初始化会话
             if (isSessionIdExpired()) {
                 Boolean b = initSession();
@@ -155,7 +155,7 @@ public class ImgtuUtil {
             headers.put("content-type", "application/x-www-form-urlencoded");
             headers.put("connection", "keep-alive");
 
-            CloseableHttpResponse httpResponse = HttpUtil.post(IMGTU_LOGIN_URL, new HashMap<>(0), headers, "login-subject=" + IMGTU_USER_NAME + "&password=" + IMGTU_PASSWORD + "&auth_token=" + authToken);
+            CloseableHttpResponse httpResponse = HttpUtils.post(IMGTU_LOGIN_URL, new HashMap<>(0), headers, "login-subject=" + IMGTU_USER_NAME + "&password=" + IMGTU_PASSWORD + "&auth_token=" + authToken);
 
             Header[] responseHeaders = httpResponse.getAllHeaders();
             for (Header header : responseHeaders) {
@@ -210,7 +210,7 @@ public class ImgtuUtil {
             params.put("auth_token", new StringBody(authToken, ContentType.MULTIPART_FORM_DATA));
             params.put("nsfw", new StringBody("0", ContentType.MULTIPART_FORM_DATA));
 
-            CloseableHttpResponse httpResponse = HttpUtil.multipart(IMGTU_OPERATE_URL, new HashMap<>(0), headers, params);
+            CloseableHttpResponse httpResponse = HttpUtils.multipart(IMGTU_OPERATE_URL, new HashMap<>(0), headers, params);
             String httpRawString = EntityUtils.toString(httpResponse.getEntity());
             log.info("【上传】成功：上传成功！");
             JsonObject jsonObject = new Gson().fromJson(httpRawString, JsonObject.class);
@@ -243,7 +243,7 @@ public class ImgtuUtil {
             params.put("delete", new StringBody("image", ContentType.MULTIPART_FORM_DATA));
             params.put("deleting[id]", new StringBody(deleteId, ContentType.MULTIPART_FORM_DATA));
 
-            CloseableHttpResponse httpResponse = HttpUtil.multipart(IMGTU_OPERATE_URL, new HashMap<>(0), headers, params);
+            CloseableHttpResponse httpResponse = HttpUtils.multipart(IMGTU_OPERATE_URL, new HashMap<>(0), headers, params);
             String httpRawString = EntityUtils.toString(httpResponse.getEntity());
             log.info("【删除】成功：删除成功！");
             return new Gson().fromJson(httpRawString, JsonObject.class);

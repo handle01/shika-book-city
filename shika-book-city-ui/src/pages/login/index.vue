@@ -111,9 +111,7 @@ export default {
     
   },
 };
-// let open = function(routerName){
-//     router.push({name:routerName})
-// }
+
 </script>
 
 <style scope>

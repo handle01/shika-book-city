@@ -10,51 +10,71 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
+ * 订单
  * (Order)表实体类
  *
  * @author makejava
+ * @date 2022/05/04
  * @since 2022-04-25 14:13:24
  */
 @SuppressWarnings("serial")
 @TableName("`order`")
 public class Order extends Model<Order> {
-    
 
-    //订单号
+
+    /**
+     * 订单id
+     */
     @TableId
     private String orderId;
-    //收货地址
+    /**
+     * 收货地址
+     */
     private String address;
-    //收货人
+    /**
+     *收货人
+     */
     private String nickName;
-    //是否发货 0 未发货
+    /**
+     * 是否发货 0 未发货
+     */
     private String isSend;
-    //修改时间
+    /**
+     * 更新时间
+     */
     private Date updateTime;
-    //创建时间
+    /**
+     * 创建时间
+     */
     private Date createTime;
-    //修改人
+    /**
+     * 修改人
+     */
     private String updateName;
-    //收货人手机号码
+    /**
+     * 收货人手机号码
+     */
     private String phone;
-    //是否删除 1删除
+    /**
+     * 是否删除 1删除
+     */
     @TableLogic
     private Integer delFlag;
-    //商品编号
+    /**
+     * 商品编号
+     */
     @TableField(exist = false)
-    private StringBuffer commodity;
+    private StringBuilder commodity;
 
-    public StringBuffer getCommodity() {
+    public StringBuilder getCommodity() {
         return commodity;
     }
 
-    public void setCommodity(StringBuffer commodity) {
+    public void setCommodity(StringBuilder commodity) {
         this.commodity = commodity;
     }
 
 
-    public Order() {
-    }
 
     public String getOrderId() {
         return orderId;

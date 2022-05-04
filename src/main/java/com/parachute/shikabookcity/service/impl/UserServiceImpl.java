@@ -10,9 +10,8 @@ import com.parachute.shikabookcity.config.CustomObjectMapper;
 import com.parachute.shikabookcity.dao.UserDao;
 import com.parachute.shikabookcity.entity.User;
 import com.parachute.shikabookcity.service.UserService;
-import com.parachute.shikabookcity.util.ImgtuUtil;
+import com.parachute.shikabookcity.util.ImgtuUtils;
 import com.parachute.shikabookcity.util.Result;
-import eu.bitwalker.useragentutils.UserAgent;
 import lombok.SneakyThrows;
 import org.apache.http.entity.ContentType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,8 +63,6 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
         }
         //获取请求
         HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
-        //获取用户登录信息
-        UserAgent userAgent = new UserAgent(request.getHeader("User-Agent"));
         // 通过ip获取其所属的地址
         ResponseEntity<String> result = restTemplate.getForEntity("https://whois.pconline.com.cn/ipJson.jsp?ip=" + request.getRemoteHost() + "&json=true", String.class);
         String body = result.getBody();
@@ -77,15 +74,24 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
         String nickName = "用户_" + i;
         //注入信息
         User user2 = new User();
-        user2.setUserName(userName);//账号
-        user2.setNickName(nickName);//用户名
-        user2.setPassword(pass);//密码
-        user2.setStatus("0");//是否冻结 ，0为不冻结
-        user2.setLoginDate(new Date());//登录时间
-        user2.setLoginIp(location);//登录地址ip
-        user2.setIpaddr(request.getRemoteAddr());//登录地址
-        user2.setCreateTime(new Date());//创建时间
-        user2.setUpdateTime(new Date());//修改时间
+        //账号
+        user2.setUserName(userName);
+        //用户名
+        user2.setNickName(nickName);
+        //密码
+        user2.setPassword(pass);
+        //是否冻结 ，0为不冻结
+        user2.setStatus("0");
+        //登录时间
+        user2.setLoginDate(new Date());
+        //登录地址ip
+        user2.setLoginIp(location);
+        //登录地址
+        user2.setIpaddr(request.getRemoteAddr());
+        //创建时间
+        user2.setCreateTime(new Date());
+        //修改时间
+        user2.setUpdateTime(new Date());
         user2.setUpdateName("system");
         user2.setProfile("https://s1.ax1x.com/2022/04/17/LNdyM4.png");
         //存入数据库
@@ -103,8 +109,6 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
     public void login(User user) {
         //获取请求
         HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
-        //获取用户登录信息
-        UserAgent userAgent = new UserAgent(request.getHeader("User-Agent"));
         // 通过ip获取其所属的地址
         ResponseEntity<String> result = restTemplate.getForEntity("https://whois.pconline.com.cn/ipJson.jsp?ip=" + request.getRemoteHost() + "&json=true", String.class);
 
@@ -116,8 +120,10 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
 
 
         LambdaUpdateWrapper<User> updateWrapper = Wrappers.lambdaUpdate();
-        updateWrapper.set(User::getLoginDate, new Date())//登录时间
-                .set(User::getIpaddr, request.getRemoteAddr())//登录地址
+        //登录时间
+        updateWrapper.set(User::getLoginDate, new Date())
+                //登录地址
+                .set(User::getIpaddr, request.getRemoteAddr())
                 .set(User::getLoginIp, location).eq(User::getUserName, user.getUserName());
         super.baseMapper.update(null, updateWrapper);
 
@@ -144,7 +150,7 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
             if (!one.getNickName().equals(nickName)) {
                 queryWrapper.eq(User::getNickName, nickName);
                 List<User> nicknames = user.selectList(queryWrapper);
-                if (nicknames.size() > 0) {
+                if (!nicknames.isEmpty()) {
                     return Result.of(false, "昵称已被占用");
                 }
             }
@@ -153,7 +159,7 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
             if (!one.getPhone().equals(phone)) {
                 queryWrapper.eq(User::getPhone, phone);
                 List<User> phones = user.selectList(queryWrapper);
-                if (phones.size() > 0) {
+                if (!phones.isEmpty()) {
                     return Result.of(false, "号码已被绑定");
                 }
             }
@@ -193,7 +199,7 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
             String fileUrl = null;
             try {
                 //上传文件到路过图床，返回图片Url到前端展示
-                fileUrl = ImgtuUtil.upload(imgFile.getBytes(), fileName, ContentType.IMAGE_JPEG);
+                fileUrl = ImgtuUtils.upload(imgFile.getBytes(), fileName, ContentType.IMAGE_JPEG);
             } catch (Exception e) {
                 e.printStackTrace();
             }

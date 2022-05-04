@@ -19,12 +19,6 @@ import java.util.Map;
 @Configuration
 public class ShiroConfig {
 
-//    @Bean
-//    public ShiroFilterFactoryBean filterFactoryBean(@Qualifier("manager") DefaultWebSecurityManager manager){
-//        ShiroFilterFactoryBean factoryBean = new ShiroFilterFactoryBean();
-//        factoryBean.setSecurityManager(manager);
-//        return factoryBean;
-//    }
 
     /**
      * shiro过滤器工厂bean
@@ -36,7 +30,7 @@ public class ShiroConfig {
     public ShiroFilterFactoryBean shiroFilterFactoryBean(@Qualifier("manager") DefaultWebSecurityManager manager){
         ShiroFilterFactoryBean factoryBean = new ShiroFilterFactoryBean();
         factoryBean.setSecurityManager(manager);
-        Map<String,String> map = new HashMap<>();
+        Map<String,String> map = new HashMap<>(16);
         map.put("/main","authc");
         factoryBean.setFilterChainDefinitionMap(map);
         //设置登录页面

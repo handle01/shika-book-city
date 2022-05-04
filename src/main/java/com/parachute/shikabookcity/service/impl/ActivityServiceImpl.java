@@ -8,14 +8,17 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.parachute.shikabookcity.dao.ActivityDao;
 import com.parachute.shikabookcity.entity.Activity;
 import com.parachute.shikabookcity.service.ActivityService;
-import com.parachute.shikabookcity.util.DateUtil;
+import com.parachute.shikabookcity.util.DateUtils;
 import com.parachute.shikabookcity.util.Result;
 import lombok.SneakyThrows;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.ParseException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 活动服务impl
@@ -226,7 +229,7 @@ public class ActivityServiceImpl extends ServiceImpl<ActivityDao, Activity> impl
      */
     @SneakyThrows
     @Override
-    public Result insert(Map data) {
+    public Result insert(Map<String,Object> data) {
         Object o = data.get("activity");
         Activity activity = JSON.parseObject(JSON.toJSONString(o), new TypeReference<Activity>() {
         });
@@ -237,13 +240,12 @@ public class ActivityServiceImpl extends ServiceImpl<ActivityDao, Activity> impl
             return result;
         }
         //随机生成商品编码
-        int i = new Random().nextInt(100000000);
-        String commodityCode = Integer.toString(i);
+        String commodityCode = insertCommodityCode();
         activity.setCommodityCode(commodityCode);
         //注入基本信息
         List<String> publishTime = activity.getPublishTime();
-        Date startTime = DateUtil.String2Date(publishTime.get(0), "yyyy-MM-dd HH:mm:ss");
-        Date activityDeadline = DateUtil.String2Date(publishTime.get(1), "yyyy-MM-dd HH:mm:ss");
+        Date startTime = DateUtils.string2Date(publishTime.get(0), DateUtils.DATE_TIME);
+        Date activityDeadline = DateUtils.string2Date(publishTime.get(1), DateUtils.DATE_TIME);
         activity.setStartTime(startTime);
         activity.setActivityDeadline(activityDeadline);
         activity.setCreateTime(new Date());
@@ -265,19 +267,22 @@ public class ActivityServiceImpl extends ServiceImpl<ActivityDao, Activity> impl
     @Override
     public Result validateForm(Activity activity) {
         //校验表单
-        String cover = activity.getCover();//封面
+        //封面
+        String cover = activity.getCover();
         if (cover == null) {
             return Result.of(false, "没有上传图片");
         }
-        String description = activity.getDescription();//简介
+        //简介
+        String description = activity.getDescription();
         if (description == null || description.length() == 0) {
             return Result.of(false, "简介为空");
         }
-        List<String> publishTime = activity.getPublishTime();//出版时间
+        //出版时间
+        List<String> publishTime = activity.getPublishTime();
         if (publishTime == null) {
             return Result.of(false, "活动时间时间未选择");
         }
-        Date date = DateUtil.String2Date(publishTime.get(0), "yyyy-MM-dd HH:mm:ss");
+        Date date = DateUtils.string2Date(publishTime.get(0), DateUtils.DATE_TIME);
 
         if (date.compareTo(new Date()) < 0) {
             return Result.of(false, "活动时间不能小于当前时间");
@@ -299,8 +304,8 @@ public class ActivityServiceImpl extends ServiceImpl<ActivityDao, Activity> impl
     public void update(Activity activity) {
         //sql
         List<String> publishTime = activity.getPublishTime();
-        Date startTime = DateUtil.String2Date(publishTime.get(0), "yyyy-MM-dd HH:mm:ss");
-        Date activityDeadline = DateUtil.String2Date(publishTime.get(1), "yyyy-MM-dd HH:mm:ss");
+        Date startTime = DateUtils.string2Date(publishTime.get(0), DateUtils.DATE_TIME);
+        Date activityDeadline = DateUtils.string2Date(publishTime.get(1), DateUtils.DATE_TIME);
         LambdaUpdateWrapper<Activity> updateWrapper = Wrappers.lambdaUpdate();
         updateWrapper.eq(Activity::getId, activity.getId())
                 .set(Activity::getActivityName, activity.getActivityName())
@@ -317,10 +322,8 @@ public class ActivityServiceImpl extends ServiceImpl<ActivityDao, Activity> impl
         //先删除书籍与活动的联系
         activityDao.delActivityBook(activityId);
         List<Integer> bookIds = activity.getBooks();
-        bookIds.forEach(bookId -> {
-            //添加书籍与活动的联系
-            activityDao.addActivityBook(activityId, bookId);
-        });
+        bookIds.forEach(bookId -> activityDao.addActivityBook(activityId, bookId)
+        );
     }
 
     /**
@@ -332,15 +335,11 @@ public class ActivityServiceImpl extends ServiceImpl<ActivityDao, Activity> impl
     public void setPublishTime(List<Activity> activities) {
         activities.forEach(activity->{
             ArrayList<String> publishTime = new ArrayList<>();
-            try {
-                String startTime = DateUtil.Date2String(activity.getStartTime());
-                String activityDeadline = DateUtil.Date2String(activity.getActivityDeadline());
-                publishTime.add(startTime);
-                publishTime.add(activityDeadline);
-                activity.setPublishTime(publishTime);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+            String startTime = DateUtils.date2String(activity.getStartTime());
+            String activityDeadline = DateUtils.date2String(activity.getActivityDeadline());
+            publishTime.add(startTime);
+            publishTime.add(activityDeadline);
+            activity.setPublishTime(publishTime);
         });
     }
 
@@ -350,6 +349,24 @@ public class ActivityServiceImpl extends ServiceImpl<ActivityDao, Activity> impl
         // 删除user与activity的联系
         delUserActivity(userId, activityId);
         delActivityBookLogic(activityId);
+    }
+
+    @Override
+    public String insertCommodityCode() {
+        //随机生成商品编码
+        String commodityCode = null;
+        boolean flag  =false;
+        while (Boolean.FALSE.equals(flag)){
+            commodityCode = RandomStringUtils.randomNumeric(8);
+            try {
+                activityDao.insertCommodityCode(commodityCode);
+                flag = true;
+            }catch (Exception e){
+                log.error("商品编码重复");
+                e.printStackTrace();
+            }
+        }
+        return commodityCode;
     }
 }
 

@@ -2,11 +2,8 @@ package com.parachute.shikabookcity.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.api.ApiController;
-import com.baomidou.mybatisplus.extension.api.R;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.parachute.shikabookcity.constant.Constant;
+import com.parachute.shikabookcity.constant.ResultConstant;
 import com.parachute.shikabookcity.entity.User;
 import com.parachute.shikabookcity.service.UserService;
 import com.parachute.shikabookcity.util.Result;
@@ -33,14 +30,14 @@ import java.util.UUID;
 @RestController
 @RequestMapping("user")
 @CrossOrigin
-public class UserController extends ApiController {
+public class UserController {
     /**
      * 服务对象
      */
     @Autowired
     private UserService userService;
     @Autowired
-    RedisTemplate redisTemplate;
+    RedisTemplate<String, String> redisTemplate;
 
 
     /**
@@ -62,15 +59,15 @@ public class UserController extends ApiController {
         try {
             subject.login(token);
         } catch (UnknownAccountException uae) {
-            return Result.of(false, "用户名错误或不存在");
+            return Result.of(false, ResultConstant.USERNAME_ERROR);
         } catch (IncorrectCredentialsException ice) {
-            return Result.of(false, "密码错误");
+            return Result.of(false, ResultConstant.PASSWORD_ERROR);
         } catch (LockedAccountException lae) {
-            return Result.of(false, "账户被冻结");
+            return Result.of(false, ResultConstant.ACCOUNT_FROZEN);
         }
         // ... catch more exceptions here (maybe custom ones specific to your application?
         catch (AuthenticationException ae) {
-            return Result.of(false, "未知错误");
+            return Result.of(false, ResultConstant.UNKNOWN_ERROR);
         }
         LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(User::getUserName, userName);
@@ -79,7 +76,7 @@ public class UserController extends ApiController {
         String nickName = one.getNickName();
         String profile = one.getProfile();
         Integer id = one.getId();
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(16);
         String uuid = UUID.randomUUID().toString();
         map.put("userName", userName);
         map.put("token", uuid);
@@ -88,7 +85,7 @@ public class UserController extends ApiController {
         map.put("nickName", nickName);
         map.put("profile", profile);
         map.put("id", id);
-        return Result.of(true, "登录成功", map);
+        return Result.of(true, ResultConstant.LOGIN_SUCCEED, map);
     }
 
     /**
@@ -102,7 +99,7 @@ public class UserController extends ApiController {
         if (user != null) {
             return userService.register(user);
         }
-        return Result.of(false, "服务器异常");
+        return Result.of(false, ResultConstant.SERVER_EXCEPTION);
     }
 
 
@@ -120,10 +117,10 @@ public class UserController extends ApiController {
         }
         try {
             userService.update(user);
-            return Result.of(true, "修改成功");
+            return Result.of(true, ResultConstant.UPDATE_SUCCEED);
         } catch (Exception e) {
             e.printStackTrace();
-            return Result.of(false, "服务器异常");
+            return Result.of(false, ResultConstant.SERVER_EXCEPTION);
         }
 
     }
@@ -138,9 +135,9 @@ public class UserController extends ApiController {
     public Result upload(@RequestParam("imgFile") MultipartFile imgFile) {
 
         try {String fileUrl = userService.upload(imgFile);
-        return Result.of(true, "上传成功", fileUrl);
+        return Result.of(true, ResultConstant.UPLOAD_SUCCEED, fileUrl);
         } catch (Exception e) {
-            return Result.of(false, "已经存在");
+            return Result.of(false, ResultConstant.IS_EXIST);
 
         }
 
@@ -157,16 +154,12 @@ public class UserController extends ApiController {
     public Result logout(HttpServletRequest request) {
         String userName = request.getHeader("userName");
         //删除redis里的token
-        if (redisTemplate.delete(Constant.LOGIN_TOKEN + userName)) {
-            return Result.of(true, "登出成功");
+        if (Boolean.TRUE.equals(redisTemplate.delete(Constant.LOGIN_TOKEN + userName))) {
+            return Result.of(true, ResultConstant.LOGOUT_SUCCEED);
         }
-        return Result.of(false, "服务器异常");
+        return Result.of(false, ResultConstant.SERVER_EXCEPTION);
     }
 
-    @GetMapping
-    public R selectAll(Page<User> page, User user) {
-        return success(this.userService.page(page, new QueryWrapper<>(user)));
-    }
 
     /**
      * 获取数据
@@ -186,14 +179,14 @@ public class UserController extends ApiController {
             String nickName = one.getNickName();
             String sex = one.getSex();
             String phone = one.getPhone();
-            HashMap<String, String> map = new HashMap<>();
+            HashMap<String, String> map = new HashMap<>(16);
             map.put("profile", profile);
             map.put("nickName", nickName);
             map.put("sex", sex);
             map.put("phone", phone);
             return Result.of(true, null, map);
         } catch (Exception e) {
-            return Result.of(false, "服务器异常");
+            return Result.of(false, ResultConstant.SERVER_EXCEPTION);
         }
 
 

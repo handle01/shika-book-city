@@ -11,7 +11,10 @@ import java.util.*;
  * @author machi
  * @date 2022/04/25
  */
-public class DateUtil {
+public class DateUtils {
+    private DateUtils(){}
+
+    public static final String DATE_TIME = "yyyy-MM-dd HH:mm:ss";
 
     /**
      * string2相等日期
@@ -21,7 +24,7 @@ public class DateUtil {
      * @return {@link Date}
      * @throws ParseException 解析异常
      */
-    public static Date String2Date(String s,String pattern) throws ParseException {
+    public static Date string2Date(String s, String pattern) throws ParseException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
         return simpleDateFormat.parse(s);
     }
@@ -32,10 +35,10 @@ public class DateUtil {
      *
      * @param date 日期
      * @return {@link String}
-     * @throws ParseException 解析异常
+     *
      */
-    public static String Date2String(Date date) throws ParseException {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    public static String date2String(Date date) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_TIME);
         return simpleDateFormat.format(date);
     }
     /**

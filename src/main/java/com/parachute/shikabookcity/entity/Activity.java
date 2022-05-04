@@ -9,47 +9,82 @@ import java.util.Date;
 import java.util.List;
 
 /**
+ * 活动
  * (Activity)表实体类
  *
  * @author makejava
+ * @date 2022/05/04
  * @since 2022-04-23 15:58:31
  */
 @SuppressWarnings("serial")
 public class Activity extends Model<Activity> {
-    
+
+    /**
+     * id
+     */
     private Integer id;
-    //活动名称
+    /**
+     * 活动名称
+     */
     private String activityName;
-    //价格
+    /**
+     * 价格
+     */
     private Double price;
-    //封面
+    /**
+     * 封面
+     */
     private String cover;
-    //修改人
+    /**
+     * 修改人
+     */
     private String updateName;
-    //修改时间
+    /**
+     * 更新时间
+     */
     private Date updateTime;
-    //创建时间
+    /**
+     * 创建时间
+     */
     private Date createTime;
-    //是否删除 1删除
+    /**
+     * 是否删除 1删除
+     */
     @TableLogic
     private Integer delFlag;
-    //活动截止时间
+    /**
+     * 活动截止日期
+     */
     private Date activityDeadline;
-    //活动开始时间
+    /**
+     * 开始时间
+     */
     private Date startTime;
-    //0代表进行中
+    /**
+     * 0代表进行中
+     */
     private String isDie;
-    //1已发布
+    /**
+     * 1已发布
+     */
     private String isPublish;
-    //描述
+    /**
+     * 描述
+     */
     private String description;
-    //活动时间范围
+    /**
+     * 活动时间范围
+     */
     @TableField(exist = false)
     private List<String> publishTime;
-    //活动所包含的书籍
+    /**
+     * 活动所包含的书籍
+     */
     @TableField(exist = false)
     private List<Integer> books;
-    //商品编码
+    /**
+     * 商品编码
+     */
     private String commodityCode;
 
     public String getCommodityCode() {

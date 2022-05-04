@@ -1,8 +1,8 @@
 package com.parachute.shikabookcity.entity;
 
-import java.util.Date;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
-import java.io.Serializable;
+
+import java.util.Date;
 
 /**
  * (MarketingAmount)表实体类
@@ -11,25 +11,35 @@ import java.io.Serializable;
  * @since 2022-04-26 22:14:27
  */
 @SuppressWarnings("serial")
-public class MarketingAmount extends Model<MarketingAmount> {
-    //日期
-    private Date data;
-    //营销额
+public class CommodityMarketingAmount extends Model<CommodityMarketingAmount> {
+    /**
+     * 日期
+     */
+    private Date date;
+    /**
+     * 销售数量
+     */
     private String marketingAmount;
-    //商品编码
+    /**
+     * 商品编码
+     */
     private String commodityCode;
-    //商品名
+    /**
+     * 商品名
+     */
     private String name;
-    //是否删除
+    /**
+     * 是否删除
+     */
     private String delFlag;
 
 
     public Date getData() {
-        return data;
+        return date;
     }
 
     public void setData(Date data) {
-        this.data = data;
+        this.date = data;
     }
 
     public String getMarketingAmount() {

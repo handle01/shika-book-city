@@ -6,16 +6,14 @@
 <script setup>
 // 引入echarts
 import * as echarts from 'echarts'
-import {onMounted,onBeforeMount} from "vue";
+import {onMounted} from "vue";
 
 import storage from "@/util/storage";
 import { getCommodityMarketingAmount} from "@/api/sales";
 
 let daily = [];
 
-onBeforeMount(()=>{
-  
-})
+
     onMounted(() => { 
       
       let userId = storage.getSessionString("id")

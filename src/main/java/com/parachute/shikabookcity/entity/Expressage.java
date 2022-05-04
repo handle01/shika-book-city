@@ -10,19 +10,33 @@ import com.baomidou.mybatisplus.extension.activerecord.Model;
  */
 @SuppressWarnings("serial")
 public class Expressage extends Model<Expressage> {
-    //订单号
+    /**
+     * 订单id
+     */
     private String orderId;
-    //当前位置
+    /**
+     * 当前位置
+     */
     private String position;
-    //是否删除 1为删除
+    /**
+     * 是否删除 1为删除
+     */
     private String delFlag;
-    //收货人
+    /**
+     * 收货人
+     */
     private String nickName;
-    //电话号码
+    /**
+     * 电话
+     */
     private String phone;
-    //1为已签收
+    /**
+     * 签署1为已签收
+     */
     private String isSigned;
-    //商品信息
+    /**
+     * 商品信息
+     */
     private String commodity;
 
 

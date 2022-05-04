@@ -151,15 +151,15 @@
 </template>
 <script  setup>
 import { ElMessage, ElMessageBox } from "element-plus";
-import { computed, ref } from "vue";
+import { computed, ref ,onMounted} from "vue";
 import { getAllBook, getNoDie, updateConfig, stop } from "@/api/activity";
-import { onMounted } from "vue";
+
 //上传文件携带请求头认证
 let headers = ref({
   token: storage.getSessionString("token"),
   userName: storage.getSessionString("userName"),
 });
-// const value = ref('')
+
 
 //是否显现
 var dialogVisible = ref();
@@ -239,7 +239,7 @@ let changPage = function (page) {
     tableData.value = res.data.data.list;
   });
 };
-// const list = tableData.value;
+
 
 let search = ref("");
 //搜索

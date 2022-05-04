@@ -34,9 +34,8 @@
 </template>
 <script  setup>
 import { useRouter } from "vue-router";
-import { computed, ref } from "vue";
+import { computed, ref ,onMounted } from "vue";
 import { getBookComment } from "@/api/bookComment";
-import { onMounted } from "vue";
 let router = useRouter()
 
 var detail = ref(router.currentRoute.value.params.name)
@@ -83,7 +82,7 @@ let changPage = function (page) {
     tableData.value = res.data.data.list;
   });
 };
-// const list = tableData.value;
+
 
 let search = ref("");
 //搜索

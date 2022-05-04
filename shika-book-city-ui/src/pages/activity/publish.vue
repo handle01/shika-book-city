@@ -135,7 +135,7 @@
       </template>
       <template #default="scope">
         <el-button size="small" @click="handleEdit(scope.row)">修改</el-button>
-        <!-- <el-button size="small" @click="pub(scope.row.id,scope.row.activityDeadline)">发布</el-button> -->
+
         <el-button size="small" type="danger" @click="Delete(scope.row.id)"
           >强制取消</el-button
         >
@@ -154,15 +154,15 @@
 </template>
 <script  setup>
 import { ElMessage, ElMessageBox } from "element-plus";
-import { computed, ref } from "vue";
+import { computed, ref,onMounted } from "vue";
 import { getAllBook,getPending, updateConfig,delActivity} from "@/api/activity";
-import { onMounted } from "vue";
+
 //上传文件携带请求头认证
 let headers = ref({
   token: storage.getSessionString("token"),
   userName: storage.getSessionString("userName"),
 });
-// const value = ref('')
+
 
 
 
@@ -247,7 +247,7 @@ let changPage = function (page) {
     tableData.value = res.data.data.list;
   });
 };
-// const list = tableData.value;
+
 
 let search = ref("");
 //搜索
