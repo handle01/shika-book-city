@@ -18,12 +18,5 @@ public class Constant {
      * 登录令牌
      */
     public static final String LOGIN_TOKEN = "loginToken:" ;
-    /**
-     * 授权
-     */
-    public static final String HEAD_AUTHORIZATION = "Authorization" ;
-    /**
-     * 令牌时间
-     */
-    public static final long TOKEN_TIME = 30 * 60L;
+
 }
