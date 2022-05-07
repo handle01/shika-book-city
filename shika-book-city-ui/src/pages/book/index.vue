@@ -4,7 +4,7 @@
         v-bind:key="index"
         :label="pages.label"
         :name="pages.name"></el-tab-pane>
-    <router-view :is="pages.name" v-if="pages.name == nowPage"></router-view>
+    <router-view  v-if="pages.name == nowPage"></router-view>
 
   </el-tabs>
 </template>
