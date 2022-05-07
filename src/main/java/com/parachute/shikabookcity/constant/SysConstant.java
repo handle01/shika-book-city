@@ -7,6 +7,7 @@ package com.parachute.shikabookcity.constant;
  * @date 2022/05/04
  */
 public class SysConstant {
+    private SysConstant(){}
 
     public static final String SYSTEM_UPDATE = "系统";
     public static final String  USER_UPDATE = "用户本人";

@@ -22,7 +22,7 @@ let daily = [];
       getMonthly({id:userId}).then(res=>{
 
          daily = res.data.data
-         //------------------------------------
+
            // 需要在页面加载完毕后展示图表，这里使用Vue3的组合式生命周期钩子 onMounted()
      let charts = echarts.init(document.getElementById("charts"));
 // 设置图表配置项,可以直接从Echarts的示例中，将配置项复制下来后放入下列的myChart.setOption()中实现图表的样式更换
