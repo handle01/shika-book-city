@@ -11,7 +11,7 @@
  Target Server Version : 80019
  File Encoding         : 65001
 
- Date: 27/04/2022 16:48:58
+ Date: 07/05/2022 16:21:09
 */
 
 SET NAMES utf8mb4;
@@ -37,20 +37,21 @@ CREATE TABLE `activity`  (
   `start_time` datetime NOT NULL COMMENT '活动开始时间',
   `commodity_code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '商品编码',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of activity
 -- ----------------------------
 INSERT INTO `activity` VALUES (1, '夏日畅想111', 265.00, '打折销售', '1', '用户本人', '2022-04-24 18:32:12', '2022-04-23 15:55:07', 1, '2022-05-26 23:40:46', '1', '1', '2022-05-24 18:59:59', '15215142');
 INSERT INTO `activity` VALUES (2, '秋风爽爽', 652.00, '打折销售', '1', 'system', '2022-04-23 17:44:57', '2022-04-23 17:44:59', 0, '2022-04-23 17:45:02', '1', '1', '2022-04-20 13:19:40', '85125632');
-INSERT INTO `activity` VALUES (3, '春意昂立', 888.00, '打折', '1', '用户本人', '2022-04-26 15:28:09', '2022-04-23 19:20:12', 0, '2022-05-28 17:14:11', '0', '1', '2022-05-25 11:23:05', '85625452');
+INSERT INTO `activity` VALUES (3, '春意昂立', 888.00, '打折ss', '1', '用户本人', '2022-05-04 13:19:49', '2022-04-23 19:20:12', 0, '2022-05-28 17:14:11', '0', '1', '2022-05-25 11:23:05', '85625452');
 INSERT INTO `activity` VALUES (4, '寒冬将至', 1688.00, '打折', '1', '用户本人', '2022-04-26 15:29:11', '2022-04-24 10:07:55', 0, '2022-05-26 11:05:21', '0', '1', '2022-05-18 19:23:18', '85425232');
 INSERT INTO `activity` VALUES (5, 'asd', 123.00, 'asd', 'https://s1.ax1x.com/2022/04/24/L4l2wt.jpg', 'system', '2022-04-24 13:52:05', '2022-04-24 13:52:05', 0, '2022-04-18 00:00:00', '1', '1', '2022-04-16 00:00:00', '91532458');
 INSERT INTO `activity` VALUES (6, 'adsdas', 123.00, 'sdasdasd', 'https://s1.ax1x.com/2022/04/24/L488SS.jpg', '用户本人', '2022-04-26 15:28:55', '2022-04-24 14:09:51', 0, '2022-05-23 10:16:25', '2', '1', '2022-04-29 00:23:13', '95125485');
 INSERT INTO `activity` VALUES (7, 'adadasd', 588.00, 'qwdqw', 'https://s1.ax1x.com/2022/04/25/LI3qRf.jpg', '用户本人', '2022-04-25 19:36:16', '2022-04-25 09:51:12', 0, '2022-04-30 00:00:00', '2', '0', '2022-04-29 00:00:00', '36251521');
 INSERT INTO `activity` VALUES (8, 'qwdqwdqwd', 265.00, 'qwdqwd', 'https://s1.ax1x.com/2022/04/25/LIvJJK.jpg', '用户本人', '2022-04-25 19:33:34', '2022-04-25 14:06:38', 0, '2022-05-23 00:00:00', '2', '0', '2022-04-30 19:26:25', '11587997');
 INSERT INTO `activity` VALUES (9, 'asdasd', 255.00, 'asdasddas', 'https://s1.ax1x.com/2022/04/25/LoOXbn.jpg', '用户本人', '2022-04-25 19:26:00', '2022-04-25 19:23:23', 0, '2022-04-25 19:39:48', '2', '1', '2022-04-25 19:39:48', '16227663');
+INSERT INTO `activity` VALUES (10, 'asdasds', 125.00, 'asdasd', 'https://s1.ax1x.com/2022/05/04/OE4t3T.jpg', 'system', '2022-05-04 13:58:13', '2022-05-04 13:58:13', 0, '2022-05-20 00:00:00', '2', '0', '2022-05-10 00:00:00', '41032892');
 
 -- ----------------------------
 -- Table structure for activity_book
@@ -116,12 +117,12 @@ CREATE TABLE `book`  (
   `del_flag` int NOT NULL DEFAULT 0 COMMENT '否删除 1 删除',
   `is_added` int NULL DEFAULT 0 COMMENT '是否上架 1上架',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 43 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 47 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of book
 -- ----------------------------
-INSERT INTO `book` VALUES (2, '夏日终曲(第90届奥斯卡最佳改编剧本奖电影《请以你的名字呼唤我》原著小说) [Call Me by Your Name]', '9787513598251', '72026178', '2018-02-01 00:00:00', '外研', 39.00, '（美）安德烈·艾席蒙', '32开', '胶版纸', '32开', 'https://img14.360buyimg.com/n1/s200x200_jfs/t1/105849/34/19259/297179/5e9d12d7Ebdc8be37/7e07f577bf3480a4.jpg', '外语教学与研究出版社I', '意大利里维埃拉，一个夏天，十七岁的少年埃利奥遇到大他七岁、前来意大利游历的美国大学生奥利弗。 两人彼此着迷、犹疑、试探，渐渐地，情感在流动中迸发。\r\n这场邂逅虽然为时只有六周，却给男孩留下了一生的印记，因为在那个闷热的仲夏，他发现了此生再也无法寻找到的东西 ……', '2022-04-18 17:25:51', '2022-04-24 10:31:04', '用户本人', 0, 1);
+INSERT INTO `book` VALUES (2, '夏日终曲(第90届奥斯卡最佳改编剧本奖电影《请以你的名字呼唤我》原著小说) [Call Me by Your Name]1', '9787513598251', '72026178', '2018-02-08 00:00:00', '外研', 39.00, '（美）安德烈·艾席蒙', '32开', '胶版纸', '32开', 'https://img14.360buyimg.com/n1/s200x200_jfs/t1/105849/34/19259/297179/5e9d12d7Ebdc8be37/7e07f577bf3480a4.jpg', '外语教学与研究出版社I', '意大利里维埃拉，一个夏天，十七岁的少年埃利奥遇到大他七岁、前来意大利游历的美国大学生奥利弗。 两人彼此着迷、犹疑、试探，渐渐地，情感在流动中迸发。\r\n这场邂逅虽然为时只有六周，却给男孩留下了一生的印记，因为在那个闷热的仲夏，他发现了此生再也无法寻找到的东西 ……', '2022-04-18 17:25:51', '2022-05-04 13:18:19', '用户本人', 0, 1);
 INSERT INTO `book` VALUES (3, '果麦经典：小王子（畅销400万册纪念版，李继宏口碑译作，作者基金会官方认证简体中文版）', '9787201077642', '24654732', '2013-01-01 00:00:00', '果麦', 39.80, '[法]安托万·德·圣埃克苏佩里', '32开', '胶版纸', '32开', 'https://img13.360buyimg.com/n1/s200x200_jfs/t1/177401/24/19598/280083/611a1473E19a282d3/bbc3ee2ebaa2122e.jpg', '天津人民出版社', '遥远星球上的小王子，与美丽而骄傲的玫瑰吵架负气出走，在各星球漫游中，小王子遇到了傲慢的国王、酒鬼、惟利是图的商人，死守教条的地理学家，后来来到地球上，试图找到治愈孤独和痛苦的良方。\r\n\r\n这时，他遇到一只奇怪的狐狸，于是奇妙而令人惊叹的事情发生了……\r\n\r\n《小王子》犹如透亮的镜子，照出了荒唐的成人世界。她在提醒我们，只有爱，才是人生的哲学，才是我们活下去的理由。', '2022-04-18 17:34:17', '2022-04-23 14:24:29', '用户本人', 0, 1);
 INSERT INTO `book` VALUES (4, '红楼梦原著版（套装上下册）（全两册）（中国古典文学读本丛书，1-9年级必读书单）', '9787020002201', '51257439', '2008-07-01 00:00:00', '人民文学出版社', 37.10, '曹雪芹', '32开', '胶版纸', '32开', 'https://img10.360buyimg.com/n1/s200x200_jfs/t1/63654/33/2304/258890/5d0a144cEbfdd8b73/b6a56c1a8095ab1d.jpg', '人民文学出版社', '《红楼梦》塑造了众多的人物形象，他们各自具有自己独特而鲜明的个性特征，成为不朽的艺术典型，在中国文学史和世界文学史上永远放射着奇光异彩。　　《红楼梦》是一部具有高度思想性和高度艺术性的伟大作品，从《红楼梦》反映的思想倾向来看，作者具有初步的民主主义思想，他对现实社会包括宫廷及官场的黑暗，封建贵族阶级及其家庭的腐朽，封建的科举制度、婚姻制度、奴婢制度、等级制度，以及与此相适应的社会统治思想即孔孟之道和程朱理学、社会道德观念等等，都进行了深刻的批判并且提出了朦胧的带有初步民主主义性质的理想和主张。这些理想和主张正是当时正在滋长的资本主义经济萌芽因素的曲折反映。', '2022-04-18 17:37:57', '2022-04-22 14:04:21', '用户本人', 0, 1);
 INSERT INTO `book` VALUES (5, '马尔克斯：百年孤独（50周年纪念版）', '9787544291170', '68980489', '2017-08-01 00:00:00', '新经典', 54.40, '加西亚·马尔克斯', '32开', '书写纸', '32开', 'https://img10.360buyimg.com/n1/s200x200_jfs/t1/136718/36/19411/347041/5fd22887Ee4fd7271/1d14a56986553ced.jpg', '南海出版公司', '《百年孤独》是魔幻现实主义文学的代表作，描写了布恩迪亚家族七代人的传奇故事，以及加勒比海沿岸小镇马孔多的百年兴衰，反映了拉丁美洲一个世纪以来风云变幻的历史。作品融入神话传说、民间故事、宗教典故等因素，巧妙地糅合了现实与虚幻，展现出一个瑰丽的想象世界，成为20世纪重要的经典文学巨著。1982年加西亚·马尔克斯获得诺贝尔文学奖，奠定世界文学大师的地位，很大程度上便是凭借《百年孤独》的巨大影响。', '2022-04-18 17:40:13', '2022-04-23 14:03:25', '用户本人', 0, 1);
@@ -140,17 +141,21 @@ INSERT INTO `book` VALUES (26, '恰同学少年（写透青年伟人背后的故
 INSERT INTO `book` VALUES (29, 'aaa', '1512121214121', '32495667', '2022-04-20 00:00:00', 'aa', 1.00, 'sas', '骑马订装', '特种纸', '16开', 'https://s1.ax1x.com/2022/04/21/L6M1SK.jpg', 'asa', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', '2022-04-21 13:57:26', '2022-04-21 13:57:26', '用户本人', 0, 0);
 INSERT INTO `book` VALUES (30, 'aaaaaaaaaaaaaa', '1212121512121', '22763072', '2022-04-11 00:00:00', '1', 1.00, '11', '平装', '灰纸板', '16开', 'https://s1.ax1x.com/2022/04/21/L6NoPe.jpg', 'aaa', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', '2022-04-21 15:00:16', '2022-04-21 15:00:16', '用户本人', 0, 0);
 INSERT INTO `book` VALUES (31, 'a', '1111111111111', '95399674', '2022-04-11 00:00:00', 'aa', 11.00, 'aa', '32开', '特种纸', '32开', 'https://s1.ax1x.com/2022/04/25/LoHyO1.jpg', 'a', 'aaaaaaaaaaaaaaaaaa', '2022-04-21 15:07:36', '2022-04-25 18:39:56', '用户本人', 0, 1);
-INSERT INTO `book` VALUES (32, 'aaaaaaaaaaaa', '1521251254121', '70342122', '2022-04-19 00:00:00', 'asasasa', 55.00, 'aasad', '16开', '胶版纸', '16开', 'https://s1.ax1x.com/2022/04/21/L62bbF.jpg', 'asdad', 'asdasdadasdasdasd', '2022-04-21 15:17:51', '2022-04-23 15:06:43', '用户本人', 0, 1);
+INSERT INTO `book` VALUES (32, 'aaaaaaaaaaaa', '1521251254121', '70342122', '2022-04-19 00:00:00', 'asasasa', 55.00, 'aasad', '16开', '胶版纸', '16开', 'https://s1.ax1x.com/2022/05/04/OEgi0x.jpg', 'asdad', 'asdasdadasdasdasd', '2022-04-21 15:17:51', '2022-05-04 13:23:37', '用户本人', 0, 1);
 INSERT INTO `book` VALUES (33, 'aaaaaaaaaaaaaa', '1521252121412', '8704807', '2022-04-12 00:00:00', 'asas', 255.00, 'asasa', '32开', '轻型纸', '32开', 'https://s1.ax1x.com/2022/04/22/LgVII0.jpg', 'sas', 'asasas', '2022-04-22 00:01:57', '2022-04-23 15:06:27', '用户本人', 0, 1);
 INSERT INTO `book` VALUES (34, 'asdasd', '1521212512125', '64377076', '2022-04-13 00:00:00', 'asdas', 252.00, 'dasd', '16开', '特种纸', '16开', 'https://s1.ax1x.com/2022/04/22/Lgzc4J.jpg', 'asdasd', 'asdasda', '2022-04-22 12:33:50', '2022-04-22 13:55:55', '用户本人', 0, 1);
 INSERT INTO `book` VALUES (35, '夏日', '1251212121212', '44221366', '2022-04-19 00:00:00', 'asda', 152.00, 'dasd', '32开', '特种纸', '32开', 'https://s1.ax1x.com/2022/04/23/LWhbbn.jpg', 'asdasd', 'asdasdasd', '2022-04-23 14:18:18', '2022-04-25 09:42:59', '用户本人', 0, 0);
-INSERT INTO `book` VALUES (36, 'asdasd', '12121214151', '36866798', '2022-04-11 00:00:00', 'dqwd', 12.00, 'asd', '16开', '特种纸', '16开', 'https://s1.ax1x.com/2022/04/23/LW47RO.jpg', 'aas', 'asas', '2022-04-23 14:19:39', '2022-04-23 14:25:30', '用户本人', 0, 0);
+INSERT INTO `book` VALUES (36, 'asdasd', '1252121214152', '36866798', '2022-04-11 00:00:00', 'dqwd', 12.00, 'asd', '16开', '特种纸', '16开', 'https://s1.ax1x.com/2022/04/23/LW47RO.jpg', 'aas', 'asas', '2022-04-23 14:19:39', '2022-05-04 13:19:29', '用户本人', 0, 0);
 INSERT INTO `book` VALUES (37, 'adc', '1255212121221', '28213162', '2022-04-15 00:00:00', 'asd', 134.00, 'asa', '32开', '超感纸', '32开', 'https://s1.ax1x.com/2022/04/23/LW5Ees.jpg', 'sasas', 'asas', '2022-04-23 14:21:27', '2022-04-23 14:23:31', '用户本人', 0, 0);
 INSERT INTO `book` VALUES (38, 'woc', '1251212121212', '33764040', '2022-04-18 00:00:00', 'qwd', 125.00, 'dqwd', '平装', '胶版纸', '32', 'https://s1.ax1x.com/2022/04/23/LWIdNq.jpg', 'qwdwqd', 'asdasdasdasdasd', '2022-04-23 14:36:37', '2022-04-23 14:36:37', '用户本人', 0, 0);
 INSERT INTO `book` VALUES (39, 'qwdqdw', '1251252121212', '9951261', '2022-04-12 00:00:00', 'dasd', 2323.00, 'asd', '线装', '纯质纸', '32', 'https://s1.ax1x.com/2022/04/23/LWocz8.jpg', 'asdasd', 'asdasdad', '2022-04-23 14:42:14', '2022-04-23 14:42:14', '用户本人', 0, 0);
 INSERT INTO `book` VALUES (40, 'wdqdwqd', '1521212521212', '8676653', '2022-04-13 00:00:00', 'asda', 265.00, 'sa', '平装', '胶版纸', '32', 'https://s1.ax1x.com/2022/04/25/LIOka6.jpg', 'dasdad', 'asdasdads', '2022-04-25 13:42:31', '2022-04-25 13:42:31', '用户本人', 0, 0);
 INSERT INTO `book` VALUES (41, 'asdasdsa', '1231121323212', '32111440', '2022-04-11 00:00:00', 'adasda', 1213.00, 'asdas', '线装', '特种纸', '16', 'https://s1.ax1x.com/2022/04/25/LIjCAx.jpg', 'dasd', 'asdasd', '2022-04-25 13:53:28', '2022-04-25 13:53:28', '用户本人', 0, 0);
-INSERT INTO `book` VALUES (42, 'wefwefe', '1252121212141', '96553288', '2022-04-18 00:00:00', 'asda', 255.00, 'dasd', '平装', '胶版纸', '16', 'https://s1.ax1x.com/2022/04/25/LoqLRg.jpg', 'asdasd', 'asdasdad', '2022-04-25 18:57:23', '2022-04-25 18:57:23', '用户本人', 0, 0);
+INSERT INTO `book` VALUES (42, 'wefwefe', '1252121212141', '96553288', '2022-04-18 00:00:00', 'asda', 255.00, 'dasd', '16', '胶版纸', '16', 'https://s1.ax1x.com/2022/04/25/LoqLRg.jpg', 'asdasd', 'asdasdad', '2022-04-25 18:57:23', '2022-05-04 13:19:32', '用户本人', 0, 1);
+INSERT INTO `book` VALUES (43, '115151', '1252121214151', '51676111', '2022-04-15 00:00:00', 'asda', 255.00, 'sdasda', '32', '纯质纸', '32', 'https://s1.ax1x.com/2022/04/30/OSJW1P.jpg', 'dad', 'asdadasd', '2022-04-30 16:15:33', '2022-05-04 13:19:34', '用户本人', 1, 0);
+INSERT INTO `book` VALUES (44, '115151', '1252121214151', '51676111', '2022-04-15 00:00:00', 'asda', 255.00, 'sdasda', '平装', '纯质纸', '32', 'https://s1.ax1x.com/2022/04/30/OSJW1P.jpg', 'dad', 'asdadasd', '2022-04-30 16:15:33', '2022-04-30 16:15:33', '用户本人', 0, 0);
+INSERT INTO `book` VALUES (45, 'SDASDAS', '1521251212121', '10438161', '2022-05-02 00:00:00', '阿迪斯', 1212.00, 'asda', '平装', '胶版纸', '16', 'https://s1.ax1x.com/2022/05/04/OE4YCV.jpg', 'asda', 'asdasdasd', '2022-05-04 13:57:45', '2022-05-04 13:57:45', '用户本人', 0, 0);
+INSERT INTO `book` VALUES (46, 'qwdqwdqdqdwqwd', '1251254512585', '50886830', '2021-05-11 00:00:00', 'qwdqwd', 222.00, 'qwdqdw', '线装', '轻型纸', '32', 'https://s1.ax1x.com/2022/05/04/OVHKOK.jpg', 'dqwd', 'dqwdqd', '2022-05-04 21:10:52', '2022-05-04 21:10:52', '用户本人', 0, 0);
 
 -- ----------------------------
 -- Table structure for book_comment
@@ -183,8 +188,8 @@ CREATE TABLE `book_type`  (
 -- ----------------------------
 -- Records of book_type
 -- ----------------------------
-INSERT INTO `book_type` VALUES (2, '军事');
 INSERT INTO `book_type` VALUES (2, '社会');
+INSERT INTO `book_type` VALUES (2, '穿越/重生');
 INSERT INTO `book_type` VALUES (2, '言情');
 INSERT INTO `book_type` VALUES (3, '军事');
 INSERT INTO `book_type` VALUES (3, '社会');
@@ -233,6 +238,62 @@ INSERT INTO `book_type` VALUES (41, '武侠');
 INSERT INTO `book_type` VALUES (42, '中国当代小说');
 INSERT INTO `book_type` VALUES (42, '外国小说');
 INSERT INTO `book_type` VALUES (42, '武侠');
+INSERT INTO `book_type` VALUES (43, '外国小说');
+INSERT INTO `book_type` VALUES (43, '武侠');
+INSERT INTO `book_type` VALUES (43, '言情');
+INSERT INTO `book_type` VALUES (45, '中国古典小说');
+INSERT INTO `book_type` VALUES (45, '中国当代小说');
+INSERT INTO `book_type` VALUES (45, '惊悚/恐怖');
+INSERT INTO `book_type` VALUES (46, '中国当代小说');
+INSERT INTO `book_type` VALUES (46, '军事');
+INSERT INTO `book_type` VALUES (46, '武侠');
+
+-- ----------------------------
+-- Table structure for commodity_code
+-- ----------------------------
+DROP TABLE IF EXISTS `commodity_code`;
+CREATE TABLE `commodity_code`  (
+  `commodity_code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '商品id',
+  PRIMARY KEY (`commodity_code`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of commodity_code
+-- ----------------------------
+INSERT INTO `commodity_code` VALUES ('03235955');
+INSERT INTO `commodity_code` VALUES ('1');
+INSERT INTO `commodity_code` VALUES ('10438161');
+INSERT INTO `commodity_code` VALUES ('15903274');
+INSERT INTO `commodity_code` VALUES ('2');
+INSERT INTO `commodity_code` VALUES ('4');
+INSERT INTO `commodity_code` VALUES ('41032892');
+INSERT INTO `commodity_code` VALUES ('49146422');
+INSERT INTO `commodity_code` VALUES ('50886830');
+INSERT INTO `commodity_code` VALUES ('6');
+INSERT INTO `commodity_code` VALUES ('67732776');
+INSERT INTO `commodity_code` VALUES ('7');
+INSERT INTO `commodity_code` VALUES ('8');
+INSERT INTO `commodity_code` VALUES ('99070198');
+
+-- ----------------------------
+-- Table structure for commodity_marketing_amount
+-- ----------------------------
+DROP TABLE IF EXISTS `commodity_marketing_amount`;
+CREATE TABLE `commodity_marketing_amount`  (
+  `data` date NOT NULL COMMENT '日期',
+  `marketing_amount` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '营销额',
+  `commodity_code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '商品编码',
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '商品名',
+  `del_flag` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '0' COMMENT '是否删除'
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of commodity_marketing_amount
+-- ----------------------------
+INSERT INTO `commodity_marketing_amount` VALUES ('2022-04-26', '5000', '51257439', '红楼梦原著版（套装上下册）（全两册）（中国古典文学读本丛书，1-9年级必读书单）', '0');
+INSERT INTO `commodity_marketing_amount` VALUES ('2022-04-25', '15121', '36251521', 'qwdqw', '0');
+INSERT INTO `commodity_marketing_amount` VALUES ('2022-04-24', '1212', '72026178', '夏日终曲(第90届奥斯卡最佳改编剧本奖电影《请以你的名字呼唤我》原著小说) [Call Me by Your Name]', '0');
+INSERT INTO `commodity_marketing_amount` VALUES ('2022-03-23', '1212', '28001354', '东野圭吾：解忧杂货店（胡歌、王俊凯、刘昊然倾情推荐，简体中文1000万册纪念版）', '0');
 
 -- ----------------------------
 -- Table structure for expressage
@@ -252,27 +313,7 @@ CREATE TABLE `expressage`  (
 -- Records of expressage
 -- ----------------------------
 INSERT INTO `expressage` VALUES ('2022042512521252', '江西科技学院', '0', '你似那璀璨星光', '13155884431', '0', '111');
-INSERT INTO `expressage` VALUES ('2022042521252121', '打包中', '0', '你似那璀璨星光', '13155884431', '1', '绝叫（罗翔推荐，豆瓣 2020年度图书 推理·悬疑 Top 1，豆瓣 2019年度电影榜单 Top10《绝叫》原著）x1; 东野圭吾：秘密（日本读者票选东野作品第 2名，仅次于《白夜行》x2; ');
-
--- ----------------------------
--- Table structure for marketing_amount
--- ----------------------------
-DROP TABLE IF EXISTS `marketing_amount`;
-CREATE TABLE `marketing_amount`  (
-  `data` date NOT NULL COMMENT '日期',
-  `marketing_amount` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '营销额',
-  `commodity_code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '商品编码',
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '商品名',
-  `del_flag` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '0' COMMENT '是否删除'
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of marketing_amount
--- ----------------------------
-INSERT INTO `marketing_amount` VALUES ('2022-04-26', '5000', '51257439', '红楼梦原著版（套装上下册）（全两册）（中国古典文学读本丛书，1-9年级必读书单）', '0');
-INSERT INTO `marketing_amount` VALUES ('2022-04-25', '15121', '36251521', 'qwdqw', '0');
-INSERT INTO `marketing_amount` VALUES ('2022-04-24', '1212', '72026178', '夏日终曲(第90届奥斯卡最佳改编剧本奖电影《请以你的名字呼唤我》原著小说) [Call Me by Your Name]', '0');
-INSERT INTO `marketing_amount` VALUES ('2022-03-23', '1212', '28001354', '东野圭吾：解忧杂货店（胡歌、王俊凯、刘昊然倾情推荐，简体中文1000万册纪念版）', '0');
+INSERT INTO `expressage` VALUES ('2022042512521252', '打包中', '0', '你似那璀璨星光', '13155884431', '0', 'qwdqwdqwdx2夏日终曲(第90届奥斯卡最佳改编剧本奖电影《请以你的名字呼唤我》原著小说) [Call Me by Your Name]1x1; ');
 
 -- ----------------------------
 -- Table structure for order
@@ -294,8 +335,8 @@ CREATE TABLE `order`  (
 -- ----------------------------
 -- Records of order
 -- ----------------------------
-INSERT INTO `order` VALUES ('2022042512521252', '江西省抚州市南城县', '你似那璀璨星光', '0', '2022-04-25 15:14:38', '2022-04-25 15:14:40', 'system', '13155884431', '0');
-INSERT INTO `order` VALUES ('2022042521252121', '江西省南昌市南昌县江西科技学院', '你似那璀璨星光', '1', '2022-04-25 15:17:34', '2022-04-25 15:17:37', 'system', '13155884431', '0');
+INSERT INTO `order` VALUES ('2022042512521252', '江西省抚州市南城县', '你似那璀璨星光', '1', '2022-04-25 15:14:38', '2022-04-25 15:14:40', 'system', '13155884431', '0');
+INSERT INTO `order` VALUES ('2022042521252121', '江西省南昌市南昌县江西科技学院', '你似那璀璨星光', '0', '2022-04-25 15:17:34', '2022-04-25 15:17:37', 'system', '13155884431', '0');
 
 -- ----------------------------
 -- Table structure for order_commodity
@@ -332,7 +373,7 @@ CREATE TABLE `publish`  (
 -- Records of publish
 -- ----------------------------
 INSERT INTO `publish` VALUES (1, '2022-04-23 00:00:00', '1', '2022-04-20 10:10:45');
-INSERT INTO `publish` VALUES (2, '2022-04-28 00:00:00', '0', '2022-04-29 00:00:00');
+INSERT INTO `publish` VALUES (2, '2022-04-28 00:00:00', '1', '2022-04-29 00:00:00');
 INSERT INTO `publish` VALUES (3, '2022-04-29 18:41:12', '2', '2022-04-13 18:41:15');
 INSERT INTO `publish` VALUES (4, '2022-04-30 18:41:22', '2', '2022-04-12 18:41:25');
 INSERT INTO `publish` VALUES (5, '2022-04-18 00:00:00', '1', '2022-04-16 00:00:00');
@@ -359,6 +400,9 @@ INSERT INTO `sales` VALUES (14, 200, '2022-03-23', 0);
 INSERT INTO `sales` VALUES (12, 500, '2022-03-31', 0);
 INSERT INTO `sales` VALUES (2, 1000, '2022-03-24', 0);
 INSERT INTO `sales` VALUES (2, 300, '2022-04-27', 0);
+INSERT INTO `sales` VALUES (3, 556, '2022-04-27', 0);
+INSERT INTO `sales` VALUES (8, 342, '2022-04-27', 0);
+INSERT INTO `sales` VALUES (11, 152, '2022-04-27', 0);
 
 -- ----------------------------
 -- Table structure for user
@@ -381,7 +425,7 @@ CREATE TABLE `user`  (
   `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '密码',
   `ipaddr` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '登录地址',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user
@@ -393,10 +437,11 @@ INSERT INTO `user` VALUES (4, 'asxasxa', '用户_95840', NULL, NULL, '0', ' 本�
 INSERT INTO `user` VALUES (5, 'nange', '用户_95840', NULL, NULL, '0', ' 本机地址', '2022-04-15 21:57:08', '2022-04-15 21:57:08', '2022-04-15 21:57:08', 0, 'system', 'https://s1.ax1x.com/2022/04/17/LNdyM4.png', '95affa15a4035aa5a3db49ad0ea1c8fd', '127.0.0.1');
 INSERT INTO `user` VALUES (6, '2417600913', '用户_95840', NULL, NULL, '0', ' 本机地址', '2022-04-16 16:58:59', '2022-04-16 16:54:28', '2022-04-16 16:54:28', 0, 'system', 'https://s1.ax1x.com/2022/04/17/LNdyM4.png', '95affa15a4035aa5a3db49ad0ea1c8fd', '127.0.0.1');
 INSERT INTO `user` VALUES (7, '2417600', '用户_64377', NULL, NULL, '0', ' 本机地址', '2022-04-16 19:18:20', '2022-04-16 19:18:20', '2022-04-16 19:18:20', 0, 'system', 'https://s1.ax1x.com/2022/04/17/LNdyM4.png', '95affa15a4035aa5a3db49ad0ea1c8fd', '127.0.0.1');
-INSERT INTO `user` VALUES (8, 'shikalu', '你似璀璨星光', '18070444649', '1', '0', ' 本机地址', '2022-04-27 16:46:45', '2022-04-16 19:18:58', '2022-04-27 13:47:23', 0, 'system', 'https://s1.ax1x.com/2022/04/18/LdFALd.jpg', '95affa15a4035aa5a3db49ad0ea1c8fd', '127.0.0.1');
+INSERT INTO `user` VALUES (8, 'shikalu', '你似璀璨星光', '18070444649', '1', '0', ' 本机地址', '2022-05-07 16:20:10', '2022-04-16 19:18:58', '2022-05-06 00:21:39', 0, '用户本人', 'https://s1.ax1x.com/2022/04/18/LdFALd.jpg', '95affa15a4035aa5a3db49ad0ea1c8fd', '127.0.0.1');
 INSERT INTO `user` VALUES (9, 'adcggg', '用户_27518', NULL, NULL, '0', ' 本机地址', '2022-04-17 16:34:42', '2022-04-17 16:34:35', '2022-04-17 16:34:35', 0, 'system', 'https://s1.ax1x.com/2022/04/17/LNdyM4.png', '95affa15a4035aa5a3db49ad0ea1c8fd', '127.0.0.1');
-INSERT INTO `user` VALUES (10, '13155884431', 'ADC', '13155884431', '1', '0', ' 本机地址', '2022-04-27 12:19:20', '2022-04-18 13:47:38', '2022-04-21 12:24:22', 0, 'system', 'https://s1.ax1x.com/2022/04/17/LNdyM4.png', '95affa15a4035aa5a3db49ad0ea1c8fd', '127.0.0.1');
+INSERT INTO `user` VALUES (10, '13155884431', 'ADC', '13155884431', '1', '0', ' 本机地址', '2022-04-29 15:00:53', '2022-04-18 13:47:38', '2022-04-21 12:24:22', 0, 'system', 'https://s1.ax1x.com/2022/04/17/LNdyM4.png', '95affa15a4035aa5a3db49ad0ea1c8fd', '127.0.0.1');
 INSERT INTO `user` VALUES (11, 'aaaaa', '用户_99440', NULL, NULL, '0', ' 本机地址', '2022-04-20 18:26:58', '2022-04-20 18:26:54', '2022-04-20 18:26:54', 0, 'system', 'https://s1.ax1x.com/2022/04/17/LNdyM4.png', '95affa15a4035aa5a3db49ad0ea1c8fd', '127.0.0.1');
+INSERT INTO `user` VALUES (12, 'aaaaaaa', '用户_95944', NULL, NULL, '0', ' 本机地址', '2022-05-04 13:17:56', '2022-05-04 13:17:56', '2022-05-04 13:17:56', 0, 'system', 'https://s1.ax1x.com/2022/04/17/LNdyM4.png', '95affa15a4035aa5a3db49ad0ea1c8fd', '127.0.0.1');
 
 -- ----------------------------
 -- Table structure for user_activity
@@ -421,6 +466,7 @@ INSERT INTO `user_activity` VALUES (8, 6, '0');
 INSERT INTO `user_activity` VALUES (8, 7, '0');
 INSERT INTO `user_activity` VALUES (8, 8, '0');
 INSERT INTO `user_activity` VALUES (8, 9, '0');
+INSERT INTO `user_activity` VALUES (8, 10, '0');
 
 -- ----------------------------
 -- Table structure for user_book
@@ -462,6 +508,9 @@ INSERT INTO `user_book` VALUES (8, 39, '1');
 INSERT INTO `user_book` VALUES (8, 40, '0');
 INSERT INTO `user_book` VALUES (8, 41, '0');
 INSERT INTO `user_book` VALUES (8, 42, '0');
+INSERT INTO `user_book` VALUES (8, 43, '1');
+INSERT INTO `user_book` VALUES (8, 45, '0');
+INSERT INTO `user_book` VALUES (8, 46, '0');
 INSERT INTO `user_book` VALUES (10, 2, '0');
 INSERT INTO `user_book` VALUES (10, 13, '0');
 
