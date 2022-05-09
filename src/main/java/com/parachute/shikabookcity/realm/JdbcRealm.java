@@ -49,8 +49,6 @@ public class JdbcRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         //获取用户名
         Object principal = authenticationToken.getPrincipal();
-        //获取密码
-        String credentials = new String((char[])authenticationToken.getCredentials());
         LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(User::getUserName,principal);
         //查询数据库进行比较
@@ -60,10 +58,6 @@ public class JdbcRealm extends AuthorizingRealm {
             throw new UnknownAccountException();
         }
         String password = user.getPassword();
-        //验证密码是否正确
-        if (!credentials.equals(password)){
-            throw new IncorrectCredentialsException();
-        }
         //账号是否封禁
         if ("1".equals(user.getStatus())){
             throw new  LockedAccountException();

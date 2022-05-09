@@ -1,6 +1,7 @@
 package com.parachute.shikabookcity.config;
 
 import com.parachute.shikabookcity.realm.JdbcRealm;
+import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -60,7 +61,18 @@ public class ShiroConfig {
      * @return {@link JdbcRealm}
      */
     @Bean
-    public JdbcRealm jdbcRealm(){
-        return new JdbcRealm();
+    public JdbcRealm jdbcRealm(@Qualifier("hashedCredentialsMatcher")HashedCredentialsMatcher matcher){
+        JdbcRealm jdbcRealm = new JdbcRealm();
+        jdbcRealm.setCredentialsMatcher(matcher);
+        return jdbcRealm;
     }
+
+
+    @Bean
+    public HashedCredentialsMatcher hashedCredentialsMatcher() {
+        HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
+        hashedCredentialsMatcher.setHashAlgorithmName("md5");
+        return hashedCredentialsMatcher;
+    }
+
 }

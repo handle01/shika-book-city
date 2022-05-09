@@ -12,7 +12,6 @@ import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -51,11 +50,9 @@ public class UserController {
         //获取用户名和密码
         String userName = user.getUserName();
         String password = user.getPassword();
-        //密码加密
-        String pass = DigestUtils.md5DigestAsHex(password.getBytes());
         //调用shiro框架实现认证
         Subject subject = SecurityUtils.getSubject();
-        UsernamePasswordToken token = new UsernamePasswordToken(userName, pass);
+        UsernamePasswordToken token = new UsernamePasswordToken(userName, password);
         try {
             subject.login(token);
         } catch (UnknownAccountException uae) {
