@@ -4,7 +4,7 @@
     v-model="dialogVisible"
     title="书籍信息"
     width="50%"
-    :before-close="handleClose"
+    F
     modal-append-to-body="false"
     ><div class="mycontainer">
       <el-form
@@ -338,15 +338,10 @@ let get = ref({
 });
 //页面跳转渲染数据
 onMounted(() => {
-  console.log("---------------------------------")
   getIsAdded(get.value).then((res) => {
     tableData.value = res.data.data.list;
     pageSize.value = res.data.data.pageSize;
     total.value = res.data.data.total;
-    console.log(res.data.data.value)
-    console.log(tableData.value)
-    console.log(pageSize.value)
-    console.log(total.value)
   });
 });
 //上传完成后执行

@@ -12,6 +12,7 @@ import com.parachute.shikabookcity.service.ActivityService;
 import com.parachute.shikabookcity.service.BookService;
 import com.parachute.shikabookcity.util.Page;
 import com.parachute.shikabookcity.util.Result;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +30,7 @@ import java.util.Map;
  * @date 2022/04/25
  * @since 2022-04-23 15:58:30
  */
+@Slf4j
 @RestController
 @RequestMapping("activity")
 public class ActivityController  {
@@ -50,9 +52,16 @@ public class ActivityController  {
     public Result getNoDie(Page page) {
         //传入当前页和每页大小
         PageMethod.startPage(page.getCurrent(), page.getSize());
-        List<Activity> activities = activityService.getNoDie(page.getUserName());
-        PageInfo<Activity> pageInfo = new PageInfo<>(activities);
-        return Result.of(true, "", pageInfo);
+        try {
+            List<Activity> activities = activityService.getNoDie(page.getUserName());
+            PageInfo<Activity> pageInfo = new PageInfo<>(activities);
+            return Result.of(true, "", pageInfo);
+        }catch (Exception e){
+            log.error(e.getMessage(),e);
+            return Result.of(false,ResultConstant.SERVER_EXCEPTION);
+        }
+
+
     }
 
     /**
@@ -68,7 +77,7 @@ public class ActivityController  {
             List<Book> isAdded = bookService.getIsAdded(userName);
             return Result.of(true, "", isAdded);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e.getMessage(),e);
             return null;
         }
 
@@ -85,9 +94,15 @@ public class ActivityController  {
     public Result getIsDie(Page page) {
         //传入当前页和每页大小
         PageMethod.startPage(page.getCurrent(), page.getSize());
-        List<Activity> activities = activityService.getIsDie(page.getUserName());
-        PageInfo<Activity> pageInfo = new PageInfo<>(activities);
-        return Result.of(true, "", pageInfo);
+        try {
+            List<Activity> activities = activityService.getIsDie(page.getUserName());
+            PageInfo<Activity> pageInfo = new PageInfo<>(activities);
+            return Result.of(true, "", pageInfo);
+        }catch (Exception e){
+            log.error(e.getMessage(),e);
+            return Result.of(false,ResultConstant.SERVER_EXCEPTION);
+        }
+
     }
 
     /**
@@ -101,9 +116,15 @@ public class ActivityController  {
     public Result getPublish(Page page) {
         //传入当前页和每页大小
         PageMethod.startPage(page.getCurrent(), page.getSize());
-        List<Activity> activities = activityService.getPublish(page.getUserName());
-        PageInfo<Activity> pageInfo = new PageInfo<>(activities);
-        return Result.of(true, "", pageInfo);
+        try {
+            List<Activity> activities = activityService.getPublish(page.getUserName());
+            PageInfo<Activity> pageInfo = new PageInfo<>(activities);
+            return Result.of(true, "", pageInfo);
+        }catch (Exception e){
+            log.error(e.getMessage(),e);
+            return Result.of(false,ResultConstant.SERVER_EXCEPTION);
+        }
+
     }
 
     /**
@@ -117,9 +138,15 @@ public class ActivityController  {
     public Result getPending(Page page) {
         //传入当前页和每页大小
         PageMethod.startPage(page.getCurrent(), page.getSize());
-        List<Activity> activities = activityService.getPending(page.getUserName());
-        PageInfo<Activity> pageInfo = new PageInfo<>(activities);
-        return Result.of(true, "", pageInfo);
+        try {
+            List<Activity> activities = activityService.getPending(page.getUserName());
+            PageInfo<Activity> pageInfo = new PageInfo<>(activities);
+            return Result.of(true, "", pageInfo);
+        }catch (Exception e){
+            log.error(e.getMessage(),e);
+            return Result.of(false,ResultConstant.SERVER_EXCEPTION);
+        }
+
     }
 
 
@@ -139,6 +166,7 @@ public class ActivityController  {
             activityService.update(updateWrapper);
             return Result.of(true, ResultConstant.FORCE_STOP);
         } catch (Exception e) {
+            log.error(e.getMessage(),e);
             return Result.of(false, ResultConstant.SERVER_EXCEPTION);
         }
     }
@@ -159,7 +187,7 @@ public class ActivityController  {
            activityService.delActivity(userId,activityId);
            return Result.of(true,ResultConstant.DELETE_SUCCEED);
        }catch (Exception e){
-           e.printStackTrace();
+           log.error(e.getMessage(),e);
            return Result.of(false,ResultConstant.SERVER_EXCEPTION);
        }
 
@@ -184,6 +212,7 @@ public class ActivityController  {
             activityService.publish(activityId,startTime,activityDeadline);
             return Result.of(true,ResultConstant.PUBLISH_SUCCEED);
         }catch (Exception e){
+            log.error(e.getMessage(),e);
             return Result.of(false,ResultConstant.SERVER_EXCEPTION);
         }
 
@@ -204,7 +233,7 @@ public class ActivityController  {
             //新增活动
             return activityService.insert(data);
         }catch (Exception e){
-            e.printStackTrace();
+            log.error(e.getMessage(),e);
             return Result.of(false,ResultConstant.SERVER_EXCEPTION);
         }
 
@@ -230,7 +259,7 @@ public class ActivityController  {
             activityService.update(activity);
             return Result.of(true,ResultConstant.UPDATE_SUCCEED);
         }catch (Exception e){
-            e.printStackTrace();
+            log.error(e.getMessage(),e);
             return Result.of(false,ResultConstant.SERVER_EXCEPTION);
         }
 

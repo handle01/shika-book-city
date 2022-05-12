@@ -219,16 +219,9 @@ public class BookServiceImpl extends ServiceImpl<BookDao, Book> implements BookS
      * @return boolean
      */
     @Override
-    public boolean delById(Integer userId, Integer bookId) {
-        try {
+    public void delById(Integer userId, Integer bookId) {
             bookDao.delById(bookId);
             bookDao.delUserBook(userId, bookId);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-
     }
 
     /**

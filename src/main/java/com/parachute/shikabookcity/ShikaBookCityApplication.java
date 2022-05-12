@@ -6,6 +6,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+/**
+ * 启动类
+ *
+ * @author machi
+ * @date 2022/05/10
+ */
 @SpringBootApplication
 @MapperScan("com.parachute.shikabookcity.dao")
 @EnableScheduling

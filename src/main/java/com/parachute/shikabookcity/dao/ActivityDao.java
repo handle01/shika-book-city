@@ -78,7 +78,7 @@ public interface ActivityDao extends BaseMapper<Activity> {
      *
      * @param userId     用户id
      * @param activityId 活动id
-     */ //删除活动与用户的联系
+     */
     @Update("UPDATE user_activity ua set del_flag = 1 WHERE ua.user_id = #{userId} and ua.activity_id = #{activityId}")
     void delUserActivity(@Param("userId") Integer userId, @Param("activityId") Integer activityId);
 

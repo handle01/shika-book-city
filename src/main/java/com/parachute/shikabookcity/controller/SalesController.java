@@ -4,6 +4,7 @@ package com.parachute.shikabookcity.controller;
 import com.parachute.shikabookcity.constant.ResultConstant;
 import com.parachute.shikabookcity.service.SalesService;
 import com.parachute.shikabookcity.util.Result;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,6 +18,7 @@ import java.util.List;
  * @author makejava
  * @since 2022-04-15 23:57:05
  */
+@Slf4j
 @RestController
 @RequestMapping("sales")
 public class SalesController{
@@ -38,7 +40,7 @@ public class SalesController{
             List<HashMap<String, Object>> sales = salesService.getDaily(id);
             return Result.of(true,"",sales);
         }catch (Exception e){
-            e.printStackTrace();
+            log.error(e.getMessage(),e);
             return Result.of(false, ResultConstant.SERVER_EXCEPTION);
         }
 
@@ -56,7 +58,7 @@ public class SalesController{
             List<HashMap<String, Object>> sales = salesService.getMonthly(id);
             return Result.of(true,"",sales);
         }catch (Exception e){
-            e.printStackTrace();
+            log.error(e.getMessage(),e);
             return Result.of(false,ResultConstant.SERVER_EXCEPTION);
         }
     }
@@ -73,7 +75,7 @@ public class SalesController{
             List<HashMap<String, Object>> sales = salesService.getYear(id);
             return Result.of(true,"",sales);
         }catch (Exception e){
-            e.printStackTrace();
+            log.error(e.getMessage(),e);
             return Result.of(false,ResultConstant.SERVER_EXCEPTION);
         }
     }
@@ -91,7 +93,7 @@ public class SalesController{
             List<HashMap<String, Object>> marketingAmounts = salesService.getCommodityMarketingAmount(id);
             return Result.of(true,"",marketingAmounts);
         }catch (Exception e){
-            e.printStackTrace();
+            log.error(e.getMessage(),e);
             return Result.of(false,ResultConstant.SERVER_EXCEPTION);
         }
     }
@@ -108,7 +110,7 @@ public class SalesController{
             List<List<String>> list = salesService.getYearMarketingAmount(id);
             return Result.of(true,"",list);
         }catch (Exception e){
-            e.printStackTrace();
+            log.error(e.getMessage(),e);
             return Result.of(false,ResultConstant.SERVER_EXCEPTION);
         }
 

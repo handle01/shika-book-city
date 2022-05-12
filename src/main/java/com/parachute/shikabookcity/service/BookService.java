@@ -32,7 +32,7 @@ public interface BookService extends IService<Book> {
      * @param bookId 书id
      * @return boolean
      */
-    boolean delById(Integer userId,Integer bookId);
+    void delById(Integer userId,Integer bookId);
 
     /**
      * 添加

@@ -16,7 +16,7 @@ import java.util.List;
 @Mapper
 public interface BookDao extends BaseMapper<Book> {
     /**
-     *
+     *获取上架书籍
      *
      * @param userName 用户名
      * @return {@link List}<{@link Book}>

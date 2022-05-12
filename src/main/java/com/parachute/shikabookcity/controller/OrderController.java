@@ -9,6 +9,7 @@ import com.parachute.shikabookcity.entity.Order;
 import com.parachute.shikabookcity.service.OrderService;
 import com.parachute.shikabookcity.util.Page;
 import com.parachute.shikabookcity.util.Result;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +24,7 @@ import java.util.Map;
  * @author makejava
  * @since 2022-04-25 14:13:22
  */
+@Slf4j
 @RestController
 @RequestMapping("order")
 public class OrderController {
@@ -39,11 +41,17 @@ public class OrderController {
      * @return {@link Result}
      */
     @RequestMapping("getOrder")
-    public Result getOrder( Page page){
-        PageMethod.startPage(page.getCurrent(),page.getSize());
-        List<Order> orders = orderService.getOrder(page.getUserName());
-        PageInfo<Order> info = new PageInfo<>(orders);
-        return Result.of(true,"",info);
+    public Result getOrder(Page page) {
+        PageMethod.startPage(page.getCurrent(), page.getSize());
+        try {
+            List<Order> orders = orderService.getOrder(page.getUserName());
+            PageInfo<Order> info = new PageInfo<>(orders);
+            return Result.of(true, "", info);
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            return Result.of(false, ResultConstant.SERVER_EXCEPTION);
+        }
+
     }
 
 
@@ -54,13 +62,13 @@ public class OrderController {
      * @return {@link Result}
      */
     @RequestMapping("send")
-    public Result send(@RequestBody Map<String,Object> map){
+    public Result send(@RequestBody Map<String, Object> map) {
         try {
             orderService.insertSend(map);
             return Result.of(true, ResultConstant.SHIPMENTS_SUCCEED);
-        }catch (Exception e){
-            e.printStackTrace();
-            return Result.of(false,ResultConstant.SERVER_EXCEPTION);
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            return Result.of(false, ResultConstant.SERVER_EXCEPTION);
         }
 
     }
@@ -72,14 +80,15 @@ public class OrderController {
      * @return {@link Result}
      */
     @RequestMapping("getOrderExpressage")
-    public Result getOrderExpressage(Page page){
+    public Result getOrderExpressage(Page page) {
         try {
             PageMethod.startPage(page.getCurrent(), page.getSize());
-            List<Expressage> expressages =  orderService.getOrderExpressage(page.getUserName());
+            List<Expressage> expressages = orderService.getOrderExpressage(page.getUserName());
             PageInfo<Expressage> pageInfo = new PageInfo<>(expressages);
-            return Result.of(true,"",pageInfo);
-        }catch (Exception e){
-            return Result.of(false,ResultConstant.SERVER_EXCEPTION);
+            return Result.of(true, "", pageInfo);
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            return Result.of(false, ResultConstant.SERVER_EXCEPTION);
         }
     }
 
@@ -90,14 +99,15 @@ public class OrderController {
      * @return {@link Result}
      */
     @RequestMapping("getSigned")
-    public Result getSigned(Page page){
+    public Result getSigned(Page page) {
         try {
             PageMethod.startPage(page.getCurrent(), page.getSize());
-            List<Expressage> signed =  orderService.getSigned(page.getUserName());
+            List<Expressage> signed = orderService.getSigned(page.getUserName());
             PageInfo<Expressage> pageInfo = new PageInfo<>(signed);
-            return Result.of(true,"",pageInfo);
-        }catch (Exception e){
-            return Result.of(false,ResultConstant.SERVER_EXCEPTION);
+            return Result.of(true, "", pageInfo);
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            return Result.of(false, ResultConstant.SERVER_EXCEPTION);
         }
 
     }

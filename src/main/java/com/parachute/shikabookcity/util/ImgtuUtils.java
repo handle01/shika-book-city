@@ -218,8 +218,7 @@ public class ImgtuUtils {
             JsonElement url = image.get("url");
             return url.getAsString();
         } catch (IOException e) {
-            log.error("【上传】失败：{}", e.getLocalizedMessage());
-            e.printStackTrace();
+            log.error("【上传】失败：{}", e.getLocalizedMessage(),e);
             return null;
         }
     }

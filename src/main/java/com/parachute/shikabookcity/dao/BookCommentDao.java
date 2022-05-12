@@ -25,7 +25,7 @@ public interface BookCommentDao extends BaseMapper<BookComment> {
      */
     @Select("SELECT b.cover,b.name,b.brand,b.author,b.commodity_code " +
             "from user u,user_book ub,book b " +
-            "WHERE u.id = ub.user_id and  ub.book_id = b.id and u.user_name = #{userName}")
+            "WHERE u.id = ub.user_id and ub.del_flag = 0 and ub.book_id = b.id and u.user_name = #{userName}")
     List<Book> getBook(String userName);
 
     /**

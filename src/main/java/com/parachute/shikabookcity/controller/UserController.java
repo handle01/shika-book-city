@@ -7,6 +7,7 @@ import com.parachute.shikabookcity.constant.ResultConstant;
 import com.parachute.shikabookcity.entity.User;
 import com.parachute.shikabookcity.service.UserService;
 import com.parachute.shikabookcity.util.Result;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
@@ -28,7 +29,7 @@ import java.util.UUID;
  */
 @RestController
 @RequestMapping("user")
-@CrossOrigin
+@Slf4j
 public class UserController {
     /**
      * 服务对象
@@ -116,7 +117,7 @@ public class UserController {
             userService.update(user);
             return Result.of(true, ResultConstant.UPDATE_SUCCEED);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e.getMessage(),e);
             return Result.of(false, ResultConstant.SERVER_EXCEPTION);
         }
 
@@ -134,6 +135,7 @@ public class UserController {
         try {String fileUrl = userService.upload(imgFile);
         return Result.of(true, ResultConstant.UPLOAD_SUCCEED, fileUrl);
         } catch (Exception e) {
+            log.error(e.getMessage(),e);
             return Result.of(false, ResultConstant.IS_EXIST);
 
         }
@@ -183,6 +185,7 @@ public class UserController {
             map.put("phone", phone);
             return Result.of(true, null, map);
         } catch (Exception e) {
+            log.error(e.getMessage(),e);
             return Result.of(false, ResultConstant.SERVER_EXCEPTION);
         }
 

@@ -9,6 +9,7 @@ import com.parachute.shikabookcity.constant.ResultConstant;
 import com.parachute.shikabookcity.constant.SysConstant;
 import com.parachute.shikabookcity.dao.ActivityDao;
 import com.parachute.shikabookcity.entity.Activity;
+import com.parachute.shikabookcity.exception.CommodityCodeException;
 import com.parachute.shikabookcity.service.ActivityService;
 import com.parachute.shikabookcity.util.DateUtils;
 import com.parachute.shikabookcity.util.Result;
@@ -364,8 +365,8 @@ public class ActivityServiceImpl extends ServiceImpl<ActivityDao, Activity> impl
                 activityDao.insertCommodityCode(commodityCode);
                 flag = true;
             }catch (Exception e){
-                log.error(ResultConstant.COMMODITY_CODE_IS_DUPLICATION);
-                e.printStackTrace();
+                log.error(ResultConstant.COMMODITY_CODE_IS_DUPLICATION,e);
+                throw new CommodityCodeException(ResultConstant.COMMODITY_CODE_IS_DUPLICATION);
             }
         }
         return commodityCode;

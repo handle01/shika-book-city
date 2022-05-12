@@ -9,6 +9,7 @@ import com.parachute.shikabookcity.entity.BookComment;
 import com.parachute.shikabookcity.service.BookCommentService;
 import com.parachute.shikabookcity.util.Page;
 import com.parachute.shikabookcity.util.Result;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,6 +22,7 @@ import java.util.List;
  * @author makejava
  * @since 2022-04-15 23:57:01
  */
+@Slf4j
 @RestController
 @RequestMapping("bookComment")
 public class BookCommentController {
@@ -44,7 +46,7 @@ public class BookCommentController {
             PageInfo<Book> pageInfo = new PageInfo<>(books);
             return Result.of(true,"",pageInfo);
         }catch (Exception e){
-            e.printStackTrace();
+            log.error(e.getMessage(),e);
             return Result.of(false, ResultConstant.SERVER_EXCEPTION);
         }
 
@@ -64,7 +66,7 @@ public class BookCommentController {
             PageInfo<BookComment> info = new PageInfo<>(comments);
             return Result.of(true,"",info);
         }catch (Exception e){
-            e.printStackTrace();
+            log.error(e.getMessage(),e);
             return Result.of(false,ResultConstant.SERVER_EXCEPTION);
         }
     }

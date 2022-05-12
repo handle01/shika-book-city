@@ -197,13 +197,12 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
     public String upload(MultipartFile imgFile) {
         //随机文件名称防止覆盖
         String fileName = UUID.randomUUID().toString();
-
             String fileUrl = null;
             try {
                 //上传文件到路过图床，返回图片Url到前端展示
                 fileUrl = ImgtuUtils.upload(imgFile.getBytes(), fileName, ContentType.IMAGE_JPEG);
             } catch (Exception e) {
-                e.printStackTrace();
+                log.error(e.getMessage(),e);
             }
         return fileUrl;
     }
